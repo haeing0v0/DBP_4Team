@@ -2,15 +2,19 @@ package HRM.Manage.repository;
 
 import HRM.Manage.domain.Employee;
 import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class jdbcCustomerRepository implements EmployeeRepository{
     private final DataSource dataSource;
 
@@ -71,16 +75,43 @@ public class jdbcCustomerRepository implements EmployeeRepository{
                 employee.setPosition_id(rs.getInt(9));
                 employee.setPay_id(rs.getInt(10));
                 employee.setDepartment_id(rs.getInt(11));
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+                return Optional.of(employee);
+            } else { return Optional.empty(); }
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        } finally {close(conn, pstmt, rs); }
     }
 
     @Override
     public List<Employee> findAll() {
-        return null;
+        String sql = "select * from EMPLOYEE";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            List<Employee> employees = new ArrayList<>();
+            while(rs.next()) {
+                Employee employee = new Employee();
+                employee.setEmployee_id(rs.getInt(1));
+                employee.setEmployee_name(rs.getString(2));
+                employee.setAddress(rs.getString(3));
+                employee.setPhonenumber(rs.getString(4));
+                employee.setEmail(rs.getString(5));
+                employee.setAge(rs.getInt(6));
+                employee.setGender(rs.getString(7));
+                employee.setDate(rs.getDate(8));
+                employee.setPosition_id(rs.getInt(9));
+                employee.setPay_id(rs.getInt(10));
+                employee.setDepartment_id(rs.getInt(11));
+                employees.add(employee);
+            }
+            return employees;
+        } catch (Exception e) {   throw new IllegalStateException(e);
+        } finally { close(conn, pstmt, rs);
+        }
     }
 
     private Connection getConnection() {
