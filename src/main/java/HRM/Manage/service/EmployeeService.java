@@ -29,4 +29,10 @@ public class EmployeeService {
     public Optional<Employee> findOne(Integer employee_id) {
         return employeeRepository.findById(employee_id);
     }
+
+//    public List<Employee> findDepartmentEmployee() {
+//
+//    }
+
+
 }

@@ -6,7 +6,6 @@ import java.sql.Date;
 public class Employee {
     Integer employee_id;
     String employee_name;
-    String address;
     String phonenumber;
     String email;
     Integer age;
@@ -30,14 +29,6 @@ public class Employee {
 
     public void setEmployee_name(String employee_name) {
         this.employee_name = employee_name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getPhonenumber() {

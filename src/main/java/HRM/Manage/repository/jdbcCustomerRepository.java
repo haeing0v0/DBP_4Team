@@ -32,15 +32,14 @@ public class jdbcCustomerRepository implements EmployeeRepository{
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, employee.getEmployee_id());
             pstmt.setString(2, employee.getEmployee_name());
-            pstmt.setString(3,employee.getAddress());
-            pstmt.setString(4, employee.getPhonenumber());
-            pstmt.setString(5,employee.getEmail());
-            pstmt.setInt(6, employee.getAge());
-            pstmt.setString(7, employee.getGender());
-            pstmt.setDate(8, java.sql.Date.valueOf(java.time.LocalDate.now()));
-            pstmt.setInt(9, employee.getPosition_id());
-            pstmt.setInt(10, employee.getPay_id());
-            pstmt.setInt(11, employee.getDepartment_id());
+            pstmt.setString(3, employee.getPhonenumber());
+            pstmt.setString(4,employee.getEmail());
+            pstmt.setInt(5, employee.getAge());
+            pstmt.setString(6, employee.getGender());
+            pstmt.setDate(7, employee.getDate());
+            pstmt.setInt(8, employee.getPosition_id());
+            pstmt.setInt(9, employee.getPay_id());
+            pstmt.setInt(10, employee.getDepartment_id());
             int num = pstmt.executeUpdate();
             if(num == 1){ return employee;}
             else { throw new SQLException("id 조회 실패"); }
@@ -66,15 +65,14 @@ public class jdbcCustomerRepository implements EmployeeRepository{
                 Employee employee = new Employee();
                 employee.setEmployee_id(rs.getInt(1));
                 employee.setEmployee_name(rs.getString(2));
-                employee.setAddress(rs.getString(3));
-                employee.setPhonenumber(rs.getString(4));
-                employee.setEmail(rs.getString(5));
-                employee.setAge(rs.getInt(6));
-                employee.setGender(rs.getString(7));
-                employee.setDate(rs.getDate(8));
-                employee.setPosition_id(rs.getInt(9));
-                employee.setPay_id(rs.getInt(10));
-                employee.setDepartment_id(rs.getInt(11));
+                employee.setPhonenumber(rs.getString(3));
+                employee.setEmail(rs.getString(4));
+                employee.setAge(rs.getInt(5));
+                employee.setGender(rs.getString(6));
+                employee.setDate(rs.getDate(7));
+                employee.setPosition_id(rs.getInt(8));
+                employee.setPay_id(rs.getInt(9));
+                employee.setDepartment_id(rs.getInt(10));
                 return Optional.of(employee);
             } else { return Optional.empty(); }
         } catch (Exception e) {
@@ -97,15 +95,14 @@ public class jdbcCustomerRepository implements EmployeeRepository{
                 Employee employee = new Employee();
                 employee.setEmployee_id(rs.getInt(1));
                 employee.setEmployee_name(rs.getString(2));
-                employee.setAddress(rs.getString(3));
-                employee.setPhonenumber(rs.getString(4));
-                employee.setEmail(rs.getString(5));
-                employee.setAge(rs.getInt(6));
-                employee.setGender(rs.getString(7));
-                employee.setDate(rs.getDate(8));
-                employee.setPosition_id(rs.getInt(9));
-                employee.setPay_id(rs.getInt(10));
-                employee.setDepartment_id(rs.getInt(11));
+                employee.setPhonenumber(rs.getString(3));
+                employee.setEmail(rs.getString(4));
+                employee.setAge(rs.getInt(5));
+                employee.setGender(rs.getString(6));
+                employee.setDate(rs.getDate(7));
+                employee.setPosition_id(rs.getInt(8));
+                employee.setPay_id(rs.getInt(9));
+                employee.setDepartment_id(rs.getInt(10));
                 employees.add(employee);
             }
             return employees;
