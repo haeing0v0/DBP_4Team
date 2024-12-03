@@ -18,7 +18,7 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @GetMapping("/department/list")
+    @GetMapping("/department/list") //부서 목록 조회
     public String departmentList(Model model) {
         List<Department> departments = departmentService.findDepartment();
         model.addAttribute("departments", departments);

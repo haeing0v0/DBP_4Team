@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class EmployeeController {
+public class
+EmployeeController {
     private final EmployeeService employeeService;
 
     @Autowired

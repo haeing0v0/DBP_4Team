@@ -1,6 +1,9 @@
 package HRM.Manage.domain;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 // java.sql.Date -> 날짜만 반환
 // java.util.Date -> 날짜와 시간 모두 반환
 public class Employee {
@@ -10,10 +13,14 @@ public class Employee {
     String email;
     Integer age;
     String gender;
-    java.sql.Date date;
-    Integer position_id;
-    Integer pay_id;
-    Integer department_id;
+    java.util.Date date;
+
+    //company_position과 1:N관계
+    private Set<Company_position> position_id_fk = new HashSet<>();
+    //pay와 1대 1 관계
+    private Pay pay_id_fk;
+    //Department와 1:N관계
+    private Set<Department> department_id_fk = new HashSet<>();
 
     public Integer getEmployee_id() {
         return employee_id;
@@ -71,27 +78,30 @@ public class Employee {
         this.date = date;
     }
 
-    public Integer getPosition_id() {
-        return position_id;
+    public Set<Company_position> getPosition_id_fk() { //position_id 전체 반환
+        return position_id_fk;
     }
 
-    public void setPosition_id(Integer position_id) {
-        this.position_id = position_id;
+    public void setPosition_id(Set<Company_position> position_id_fk) {
+        this.position_id_fk = position_id_fk;
     }
 
-    public Integer getPay_id() {
-        return pay_id;
+    public Pay getPay_id() {
+        return pay_id_fk;
     }
 
-    public void setPay_id(Integer pay_id) {
-        this.pay_id = pay_id;
+    public void setPay_id(Pay pay_id){
+        this.pay_id_fk = pay_id;
     }
 
-    public Integer getDepartment_id() {
-        return department_id;
+    public Set<Department> getDepartment_id() {
+        return department_id_fk;
     }
 
-    public void setDepartment_id(Integer department_id) {
-        this.department_id = department_id;
+    public void setDepartment_id(Set<Department> department_id) {
+        this.department_id_fk = department_id;
     }
+
+
+
 }

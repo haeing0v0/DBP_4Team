@@ -20,7 +20,7 @@ public class jdbcDepartmentRepository implements DepartmentRepository{
     }
 
     @Override
-    public List<Department> findAll() {
+    public List<Department> findDepartment() {
         String sql = "select * from Department";
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -35,7 +35,6 @@ public class jdbcDepartmentRepository implements DepartmentRepository{
                 department.setDepartment_id(rs.getInt(1));
                 department.setDepartment_name(rs.getString(2));
                 department.setDepartment_totalsales(rs.getInt(3));
-                department.setEmployee_id(rs.getInt(4));
                 departments.add(department);
             }
             return departments;

@@ -15,7 +15,7 @@ public class DepartmentService {
     public DepartmentService(DepartmentRepository departmentRepository) {this.departmentRepository = departmentRepository;}
 
     public List<Department> findDepartment() {
-        return departmentRepository.findAll();
+        return departmentRepository.findDepartment();
     }
 
 }

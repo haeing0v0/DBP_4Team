@@ -1,7 +1,7 @@
 package HRM.Manage;
 
 import HRM.Manage.repository.EmployeeRepository;
-import HRM.Manage.repository.jdbcCustomerRepository;
+import HRM.Manage.repository.jdbcEmployeeRepository;
 import HRM.Manage.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +22,7 @@ public class SpringConfig {
     }
     @Bean
     public EmployeeRepository employeeRepository() {
-        return new jdbcCustomerRepository(dataSource);
+        return new jdbcEmployeeRepository(dataSource);
     }
 
 }
