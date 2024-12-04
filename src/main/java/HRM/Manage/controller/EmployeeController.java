@@ -2,10 +2,12 @@ package HRM.Manage.controller;
 
 import HRM.Manage.domain.Employee;
 import HRM.Manage.service.EmployeeService;
+import HRM.Manage.DTO.employeeStateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
 
 @Controller
 public class
@@ -18,27 +20,34 @@ EmployeeController {
     }
 
     @GetMapping("/")
-    public String mainpage() {return "mainpage";}
+    public String mainpage(Model model) {
+        employeeStateDTO stats = employeeService.findEmployeeStats();
+        model.addAttribute("totalEmployees", stats.getTotalEmployees());
+        model.addAttribute("departmentStats", stats.getDepartmentStats());
+        model.addAttribute("positionStats", stats.getPositionStates());
+        return "mainpage";
+    }
 
     @GetMapping("/employees/enter")
     public String enterEmployee() {return "employees/enterEmployee";}
 
-    @PostMapping(value = "/employees/enter")
-    public String create(Employee e){
+    @PostMapping(value = "/employees/create")
+    public String create(Employee form){
         Employee employee = new Employee();
-        employee.setEmployee_id(e.getEmployee_id());
-        employee.setEmployee_name(e.getEmployee_name());
-        employee.setPhonenumber(e.getPhonenumber());
-        employee.setEmail(e.getEmail());
-        employee.setAge(e.getAge());
-        employee.setGender(e.getGender());
-        employee.setDate(e.getDate());
-        employee.setPosition_id_fk(e.getPosition_id_fk());
-        employee.setPay_id_fk(e.getPay_id_fk());
-        employee.setDepartment_id_fk(e.getDepartment_id_fk());
+        employee.setEmployee_id(form.getEmployee_id());
+        employee.setEmployee_name(form.getEmployee_name());
+        employee.setPhonenumber(form.getPhonenumber());
+        employee.setEmail(form.getEmail());
+        employee.setAge(form.getAge());
+        employee.setGender(form.getGender());
+        employee.setDate(form.getDate());
+        employee.setPosition_id_fk(form.getPosition_id_fk());
+        employee.setPay_id_fk(form.getPay_id_fk());
+        employee.setDepartment_id_fk(form.getDepartment_id_fk());
         employeeService.join(employee);
-        return "redirect:/";
+        return "employees/employeeList";
     }
+
 
 //    @GetMapping(value = "/employees/department")
 //    public String list(Model model) {

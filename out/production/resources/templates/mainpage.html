@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <title>MainPage</title>
+    <title>인사관리 시스템</title>
 </head>
 <body>
-인사관리 메인페이지 (인사관리 대시보드 창)
+<h1>인사관리 메인페이지, 대시보드 반환</h1>
+
+<p>전체 사원 수: <span th:text="${totalEmployees}"></span></p>
+
+<h2>부서별 사원 통계</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>부서명</th>
+        <th>직원 수</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="dept : ${departmentStats}">
+        <td th:text="${dept.departmentName}"></td>
+        <td th:text="${dept.employeeCount}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>직급별 사원 통계</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>직급명</th>
+        <th>직원 수</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pos : ${positionStats}">
+        <td th:text="${pos.positionName}"></td>
+        <td th:text="${pos.employeeCount}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

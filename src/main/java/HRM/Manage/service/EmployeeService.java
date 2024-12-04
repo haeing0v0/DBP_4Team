@@ -1,5 +1,6 @@
 package HRM.Manage.service;
 
+import HRM.Manage.DTO.employeeStateDTO;
 import HRM.Manage.domain.Employee;
 import HRM.Manage.repository.EmployeeRepository;
 import jakarta.transaction.Transactional;
@@ -29,6 +30,7 @@ public class EmployeeService {
     public Optional<Employee> findOne(Integer employee_id) {
         return employeeRepository.findById(employee_id);
     }
+    public employeeStateDTO findEmployeeStats() {return employeeRepository.calculateEmployeeStats();}
 
 //    public List<Employee> findDepartmentEmployee() {
 //

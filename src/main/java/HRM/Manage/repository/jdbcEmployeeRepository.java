@@ -1,14 +1,14 @@
 package HRM.Manage.repository;
 
+import HRM.Manage.DTO.employeeStateDTO;
 import HRM.Manage.domain.Employee;
+import oracle.jdbc.OracleType;
+import oracle.jdbc.OracleTypes;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -108,6 +108,53 @@ public class jdbcEmployeeRepository implements EmployeeRepository{
             return employees;
         } catch (Exception e) {   throw new IllegalStateException(e);
         } finally { close(conn, pstmt, rs);
+        }
+    }
+
+    public employeeStateDTO calculateEmployeeStats() {
+        Connection conn = null;     CallableStatement cstmt = null;
+        String procedureCall = "{CALL CALCULATE_EMPLOYEE_STATS(?, ?, ?)}";
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall(procedureCall);
+
+            cstmt.registerOutParameter(1, Types.INTEGER);
+            cstmt.registerOutParameter(2, OracleTypes.CURSOR);
+            cstmt.registerOutParameter(3, OracleTypes.CURSOR);
+
+            cstmt.execute();
+
+            int totalEmployees = cstmt.getInt(1);
+
+            List<employeeStateDTO.DepartmentStats> departmentStats = new ArrayList<>();
+            try (ResultSet rs = (ResultSet)cstmt.getObject(2)) {
+                while(rs.next()) {
+                    employeeStateDTO.DepartmentStats deptStat = new employeeStateDTO.DepartmentStats();
+                    deptStat.setDepartmentName(rs.getString("DEPARTMENT_NAME"));
+                    deptStat.setEmployeeCount(rs.getInt("EMPLOYEE_COUNT"));
+                    departmentStats.add(deptStat);
+                }
+            }
+
+            List<employeeStateDTO.PositionStats> positionStats = new ArrayList<>();
+            try ( ResultSet rs = (ResultSet)cstmt.getObject(3)) {
+                while(rs.next()) {
+                    employeeStateDTO.PositionStats posStat = new employeeStateDTO.PositionStats();
+                    posStat.setPositionName(rs.getString("POSITION_NAME"));
+                    posStat.setEmployeeCount(rs.getInt("EMPLOYEE_COUNT"));
+                    positionStats.add(posStat);
+                }
+            }
+
+            employeeStateDTO stats = new employeeStateDTO();
+            stats.setTotalEmployees(totalEmployees);
+            stats.setDepartmentStats(departmentStats);
+            stats.setPositionStates(positionStats);
+
+            return stats;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
