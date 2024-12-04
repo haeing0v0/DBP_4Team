@@ -36,29 +36,9 @@ public class jdbcEmployeeRepository implements EmployeeRepository{
             pstmt.setInt(5, employee.getAge());
             pstmt.setString(6, employee.getGender());
             pstmt.setDate(7, new java.sql.Date(employee.getDate().getTime())); // Date 변환
-
-            // position_id_fk 처리: 첫 번째 ID 가져오기
-            if (!employee.getPosition_id_fk().isEmpty()) {
-                Company_position firstPosition = employee.getPosition_id_fk().iterator().next();
-                pstmt.setInt(8, firstPosition.getPosition_id()); // 첫 번째 position_id 사용
-            } else {
-                pstmt.setNull(8, java.sql.Types.INTEGER); // position_id 값이 없으면 NULL 설정
-            }
-
-            // pay_id_fk 처리
-            if (employee.getPay_id() != null) {
-                pstmt.setInt(9, employee.getPay_id().getPay_id()); // pay_id 사용
-            } else {
-                pstmt.setNull(9, java.sql.Types.INTEGER); // pay_id 값이 없으면 NULL 설정
-            }
-
-            // department_id_fk 처리: 첫 번째 ID 가져오기
-            if (!employee.getDepartment_id().isEmpty()) {
-                Department firstDepartment = employee.getDepartment_id().iterator().next();
-                pstmt.setInt(10, firstDepartment.getDepartment_id()); // 첫 번째 department_id 사용
-            } else {
-                pstmt.setNull(10, java.sql.Types.INTEGER); // department_id 값이 없으면 NULL 설정
-            }
+            pstmt.setInt(8, employee.getPosition_id_fk());
+            pstmt.setInt(9, employee.getPay_id_fk());
+            pstmt.setInt(10, employee.getDepartment_id_fk());
 
             int num = pstmt.executeUpdate();
             if(num == 1){ return employee;}
@@ -90,9 +70,9 @@ public class jdbcEmployeeRepository implements EmployeeRepository{
                 employee.setAge(rs.getInt(5));
                 employee.setGender(rs.getString(6));
                 employee.setDate(rs.getDate(7));
-                employee.setPosition_id(rs.getInt(8));
-                employee.setPay_id(rs.getInt(9));
-                employee.setDepartment_id(rs.getInt(10));
+                employee.setPosition_id_fk(rs.getInt(8));
+                employee.setPay_id_fk(rs.getInt(9));
+                employee.setDepartment_id_fk(rs.getInt(10));
                 return Optional.of(employee);
             } else { return Optional.empty(); }
         } catch (Exception e) {
@@ -120,9 +100,9 @@ public class jdbcEmployeeRepository implements EmployeeRepository{
                 employee.setAge(rs.getInt(5));
                 employee.setGender(rs.getString(6));
                 employee.setDate(rs.getDate(7));
-                employee.setPosition_id(rs.getInt(8));
-                employee.setPay_id(rs.getInt(9));
-                employee.setDepartment_id(rs.getInt(10));
+                employee.setPosition_id_fk(rs.getInt(8));
+                employee.setPay_id_fk(rs.getInt(9));
+                employee.setDepartment_id_fk(rs.getInt(10));
                 employees.add(employee);
             }
             return employees;

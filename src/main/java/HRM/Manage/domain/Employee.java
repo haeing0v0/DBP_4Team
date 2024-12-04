@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+
 // java.sql.Date -> 날짜만 반환
 // java.util.Date -> 날짜와 시간 모두 반환
 public class Employee {
@@ -14,13 +15,10 @@ public class Employee {
     Integer age;
     String gender;
     java.util.Date date;
+    Integer position_id_fk;
+    Integer pay_id_fk;
+    Integer department_id_fk;
 
-    //company_position과 1:N관계
-    private Set<Company_position> position_id_fk = new HashSet<>();
-    //pay와 1대 1 관계
-    private Pay pay_id_fk;
-    //Department와 1:N관계
-    private Set<Department> department_id_fk = new HashSet<>();
 
     public Integer getEmployee_id() {
         return employee_id;
@@ -78,29 +76,30 @@ public class Employee {
         this.date = date;
     }
 
-    public Set<Company_position> getPosition_id_fk() { //position_id 전체 반환
+    public Integer getPosition_id_fk() {
         return position_id_fk;
     }
 
-    public void setPosition_id(Set<Company_position> position_id_fk) {
+    public void setPosition_id_fk(Integer position_id_fk) {
         this.position_id_fk = position_id_fk;
     }
 
-    public Pay getPay_id() {
+    public Integer getPay_id_fk() {
         return pay_id_fk;
     }
 
-    public void setPay_id(Pay pay_id){
-        this.pay_id_fk = pay_id;
+    public void setPay_id_fk(Integer pay_id_fk) {
+        this.pay_id_fk = pay_id_fk;
     }
 
-    public Set<Department> getDepartment_id() {
+    public Integer getDepartment_id_fk() {
         return department_id_fk;
     }
 
-    public void setDepartment_id(Set<Department> department_id) {
-        this.department_id_fk = department_id;
+    public void setDepartment_id_fk(Integer department_id_fk) {
+        this.department_id_fk = department_id_fk;
     }
+
 
 
 

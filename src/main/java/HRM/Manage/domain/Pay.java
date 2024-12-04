@@ -5,7 +5,7 @@ public class Pay {
     Integer default_pay;
     Integer year_pay;
     Integer incentive;
-    private Employee employee_id;
+    Integer employee_id_fk;
 
     public Integer getPay_id() {
         return pay_id;
@@ -39,11 +39,11 @@ public class Pay {
         this.year_pay = year_pay;
     }
 
-    public Employee getEmployee_id() {
-        return employee_id;
+    public Integer getEmployee_id_fk() {
+        return employee_id_fk;
     }
 
-    public void setEmployee_id(Employee employee_id) {
-        this.employee_id = employee_id;
+    public void setEmployee_id_fk(Integer employee_id_fk) {
+        this.employee_id_fk = employee_id_fk;
     }
 }

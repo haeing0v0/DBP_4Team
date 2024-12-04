@@ -33,9 +33,9 @@ EmployeeController {
         employee.setAge(e.getAge());
         employee.setGender(e.getGender());
         employee.setDate(e.getDate());
-        employee.setPosition_id(e.getPosition_id());
-        employee.setPay_id(e.getPay_id());
-        employee.setDepartment_id(e.getDepartment_id());
+        employee.setPosition_id_fk(e.getPosition_id_fk());
+        employee.setPay_id_fk(e.getPay_id_fk());
+        employee.setDepartment_id_fk(e.getDepartment_id_fk());
         employeeService.join(employee);
         return "redirect:/";
     }
