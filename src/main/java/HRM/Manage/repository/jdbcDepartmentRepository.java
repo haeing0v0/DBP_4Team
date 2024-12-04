@@ -43,6 +43,35 @@ public class jdbcDepartmentRepository implements DepartmentRepository{
         }
     }
 
+    @Override
+    public List<Department> findTop3Department() {
+        String sql = "SELECT DEPARTMENT_NAME, DEPARTMENT_TOTALSALES " +
+                "FROM ( " +
+                "    SELECT DEPARTMENT_NAME, DEPARTMENT_TOTALSALES " +
+                "    FROM DEPARTMENT " +
+                "    ORDER BY DEPARTMENT_TOTALSALES DESC " +
+                ") " +
+                "WHERE ROWNUM <= 3";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            List<Department> departments = new ArrayList<>();
+            while(rs.next()) {
+                Department department = new Department();
+                department.setDepartment_name(rs.getString(1));
+                department.setDepartment_totalsales(rs.getInt(2));
+                departments.add(department);
+            }
+            return departments;
+        } catch (Exception e) {   throw new IllegalStateException(e);
+        } finally { close(conn, pstmt, rs);
+        }
+    }
+
     private Connection getConnection() {
         return DataSourceUtils.getConnection(dataSource);
     }

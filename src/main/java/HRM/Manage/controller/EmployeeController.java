@@ -1,6 +1,8 @@
 package HRM.Manage.controller;
 
+import HRM.Manage.domain.Department;
 import HRM.Manage.domain.Employee;
+import HRM.Manage.service.DepartmentService;
 import HRM.Manage.service.EmployeeService;
 import HRM.Manage.DTO.employeeStateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,12 @@ import org.springframework.ui.Model;
 public class
 EmployeeController {
     private final EmployeeService employeeService;
+    private final DepartmentService departmentService;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService) {
+    public EmployeeController(EmployeeService employeeService, DepartmentService departmentService) {
         this.employeeService = employeeService;
+        this.departmentService = departmentService;
     }
 
     @GetMapping("/")
@@ -25,6 +29,7 @@ EmployeeController {
         model.addAttribute("totalEmployees", stats.getTotalEmployees());
         model.addAttribute("departmentStats", stats.getDepartmentStats());
         model.addAttribute("positionStats", stats.getPositionStates());
+        model.addAttribute("Top3Department", departmentService.findTop3Department());
         return "mainpage";
     }
 

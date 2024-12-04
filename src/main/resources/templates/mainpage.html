@@ -39,5 +39,22 @@
     </tr>
     </tbody>
 </table>
+
+<h2>부서 매출 상위 3개</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>부서명</th>
+        <th>총 매출</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="dept : ${Top3Department}">
+        <td th:text="${dept.department_name}"></td>
+        <td th:text="${dept.department_totalsales}"></td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>
