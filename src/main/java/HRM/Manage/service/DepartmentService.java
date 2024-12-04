@@ -18,5 +18,5 @@ public class DepartmentService {
         return departmentRepository.findDepartment();
     }
     public List<Department> findTop3Department() {return departmentRepository.findTop3Department();}
-
+    public List<Department> findDepartmentName() {return departmentRepository.findDepartmentName();}
 }

@@ -111,9 +111,11 @@ public class jdbcEmployeeRepository implements EmployeeRepository{
         }
     }
 
+    @Override
     public employeeStateDTO calculateEmployeeStats() {
         Connection conn = null;     CallableStatement cstmt = null;
         String procedureCall = "{CALL CALCULATE_EMPLOYEE_STATS(?, ?, ?)}";
+
         try {
             conn = getConnection();
             cstmt = conn.prepareCall(procedureCall);
@@ -150,35 +152,103 @@ public class jdbcEmployeeRepository implements EmployeeRepository{
             stats.setTotalEmployees(totalEmployees);
             stats.setDepartmentStats(departmentStats);
             stats.setPositionStates(positionStats);
-
             return stats;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally { close(conn, cstmt, null);
         }
     }
+
+    @Override
+    public List<Employee> findEmployeesByDepartment(String name) {
+        String sql = "SELECT e.EMPLOYEE_ID, e.EMPLOYEE_NAME, e.PHONENUMBER, e.EMAIL, e.GENDER " +
+                "FROM Employee e " +
+                "JOIN Department d ON e.department_id_fk = d.department_id " +
+                "WHERE d.department_name = ?";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, name);
+            rs = pstmt.executeQuery();
+            List<Employee> employees = new ArrayList<>();
+
+            while (rs.next()) {
+                Employee employee = new Employee();
+                employee.setEmployee_id(rs.getInt("EMPLOYEE_ID"));
+                employee.setEmployee_name(rs.getString("EMPLOYEE_NAME"));
+                employee.setPhonenumber(rs.getString("PHONENUMBER"));
+                employee.setEmail(rs.getString("EMAIL"));
+                employee.setGender(rs.getString("GENDER"));
+
+                // 저장 프로시저 호출로 근무일수 계산
+                int workDays = calculateWorkDays(employee.getEmployee_id());
+                employee.setWorkDays(workDays); // Employee 객체에 근무일수 추가 (Employee에 필드 필요)
+
+                employees.add(employee);
+            }
+
+
+            return employees;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally { close(conn, pstmt, null);
+        }
+    }
+
+    private int calculateWorkDays(int employeeId) {
+        Connection conn = null;     CallableStatement cstmt = null;
+        String procedureCall = "{CALL CALCULATE_WORK_DAYS(?, ?)}";
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall(procedureCall);
+
+            cstmt.setInt(1, employeeId);
+            cstmt.registerOutParameter(2, Types.INTEGER);
+
+            cstmt.execute();
+
+            return cstmt.getInt(2);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally { close(conn, cstmt, null);
+        }
+    }
+
+
 
     private Connection getConnection() {
         return DataSourceUtils.getConnection(dataSource);
     }
-    private void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
-        //rs, stmt, conn 순서대로 처리
+
+    private void close(Connection conn, Statement stmt, ResultSet rs) {
         try {
-            if (rs != null) {                rs.close();
+            if (rs != null) {
+                rs.close();
             }
-        } catch (SQLException e) {            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         try {
-            if (pstmt != null) {                pstmt.close();
+            if (stmt != null) { // stmt는 PreparedStatement 또는 CallableStatement 모두 가능
+                stmt.close();
             }
-        } catch (SQLException e) {            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         try {
-            if (conn != null) {                close(conn);  // private method
+            if (conn != null) {
+                close(conn); // Connection 닫기
             }
-        } catch (SQLException e) {            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
+
     private void close(Connection conn) throws SQLException {
         DataSourceUtils.releaseConnection(conn, dataSource);
     }

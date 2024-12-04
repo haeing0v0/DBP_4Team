@@ -72,6 +72,29 @@ public class jdbcDepartmentRepository implements DepartmentRepository{
         }
     }
 
+    @Override
+    public List<Department> findDepartmentName() {
+        String sql = "SELECT DEPARTMENT_NAME FROM DEPARTMENT";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            List<Department> departmentNames = new ArrayList<>();
+            while(rs.next()) {
+                Department department = new Department();
+                department.setDepartment_name(rs.getString(1));
+                departmentNames.add(department);
+            }
+            return departmentNames;
+        } catch (Exception e) {   throw new IllegalStateException(e);
+        } finally { close(conn, pstmt, rs);
+        }
+
+    }
+
     private Connection getConnection() {
         return DataSourceUtils.getConnection(dataSource);
     }

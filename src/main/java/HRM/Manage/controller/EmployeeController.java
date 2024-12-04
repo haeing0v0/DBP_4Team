@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class
@@ -50,7 +53,25 @@ EmployeeController {
         employee.setPay_id_fk(form.getPay_id_fk());
         employee.setDepartment_id_fk(form.getDepartment_id_fk());
         employeeService.join(employee);
-        return "employees/employeeList";
+        return "redirect:/employees/enter";
+    }
+
+    @GetMapping("/employees/department")    //부서 선택 시 직원 조회. -> 수정 필요
+    public String departmentEmployeeList(@RequestParam(value = "departmentName", required = false) String departmentName, Model model) {
+
+        List<Department> departmentNames = departmentService.findDepartmentName();
+        model.addAttribute("departmentNames", departmentNames); //부서 이름 리스트
+
+        // 직원 조회는 departmentName이 유효할 때만 수행
+        if (departmentName != null && !departmentName.isEmpty()) {
+            List<Employee> depEmployee = employeeService.findEmployeesByDepartment(departmentName);
+            model.addAttribute("departmentName", departmentName); // 선택된 부서 이름
+            model.addAttribute("employees", depEmployee);         // 선택된 부서의 직원 리스트
+        } else {
+            model.addAttribute("employees", null); // 직원 리스트가 없을 경우 null로 처리
+        }
+
+        return "employees/departmentEmployeeList";
     }
 
 

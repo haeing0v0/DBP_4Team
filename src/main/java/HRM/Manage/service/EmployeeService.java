@@ -31,6 +31,7 @@ public class EmployeeService {
         return employeeRepository.findById(employee_id);
     }
     public employeeStateDTO findEmployeeStats() {return employeeRepository.calculateEmployeeStats();}
+    public List<Employee> findEmployeesByDepartment(String Department_name) {return employeeRepository.findEmployeesByDepartment(Department_name);}
 
 //    public List<Employee> findDepartmentEmployee() {
 //

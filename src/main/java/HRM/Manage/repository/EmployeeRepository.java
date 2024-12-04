@@ -11,5 +11,6 @@ public interface EmployeeRepository {
     Optional<Employee> findById(Integer id);
     List<Employee> findAll();
     employeeStateDTO calculateEmployeeStats();  //저장프로시저(1) 호출 메서드
+    List<Employee> findEmployeesByDepartment(String name);
 
 }

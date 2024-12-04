@@ -18,6 +18,8 @@ public class Employee {
     Integer position_id_fk;
     Integer pay_id_fk;
     Integer department_id_fk;
+    Integer workDays;
+
 
 
     public Integer getEmployee_id() {
@@ -100,7 +102,13 @@ public class Employee {
         this.department_id_fk = department_id_fk;
     }
 
+    public Integer getWorkDays() {
+        return workDays;
+    }
 
+    public void setWorkDays(Integer workDays) {
+        this.workDays = workDays;
+    }
 
 
 }

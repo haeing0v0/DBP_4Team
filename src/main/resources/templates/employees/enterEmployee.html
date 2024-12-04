@@ -1,10 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <title>enterEmployee</title>
+    <title>직원 정보 입력</title>
 </head>
 <body>
-직원 등록 창
+<h1>직원 정보 입력</h1>
+
+<form action="/employees/create" method="post">
+    <!-- Employee ID -->
+    <label for="employee_id">직원 ID:</label>
+    <input type="number" id="employee_id" name="employee_id" required>
+    <br><br>
+
+    <!-- Employee Name -->
+    <label for="employee_name">이름:</label>
+    <input type="text" id="employee_name" name="employee_name" required>
+    <br><br>
+
+    <!-- Phone Number -->
+    <label for="phonenumber">전화번호:</label>
+    <input type="text" id="phonenumber" name="phonenumber" required>
+    <br><br>
+
+    <!-- Email -->
+    <label for="email">이메일:</label>
+    <input type="email" id="email" name="email" required>
+    <br><br>
+
+    <!-- Age -->
+    <label for="age">나이:</label>
+    <input type="number" id="age" name="age" required>
+    <br><br>
+
+    <!-- Gender -->
+    <label for="gender">성별:</label>
+    <select id="gender" name="gender" required>
+        <option value="Male">남성</option>
+        <option value="Female">여성</option>
+    </select>
+    <br><br>
+
+    <!-- Date -->
+    <label for="date">입사 날짜:</label>
+    <input type="date" id="date" name="date" required>
+    <br><br>
+
+    <!-- Position ID -->
+    <label for="position_id_fk">직급 ID:</label>
+    <input type="number" id="position_id_fk" name="position_id_fk" required>
+    <br><br>
+
+    <!-- Pay ID -->
+    <label for="pay_id_fk">급여 ID:</label>
+    <input type="number" id="pay_id_fk" name="pay_id_fk" required>
+    <br><br>
+
+    <!-- Department ID -->
+    <label for="department_id_fk">부서 ID:</label>
+    <input type="number" id="department_id_fk" name="department_id_fk" required>
+    <br><br>
+
+    <!-- Submit Button -->
+    <button type="submit">직원 추가</button>
+</form>
 </body>
 </html>
