@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>급여 정보 조회</title>
+</head>
+<body>
+<h1>급여 정보 조회</h1>
+
+<!-- 직원 ID 입력 폼 -->
+<form action="/pay/one" method="get">
+    <label for="id">직원 ID:</label>
+    <input type="number" id="id" name="id" required />
+    <button type="submit">조회</button>
+</form>
+
+<hr>
+
+<!-- 급여 정보가 존재하는 경우 -->
+<div th:if="${payOne != null}">
+    <h2>급여 정보</h2>
+    <p><strong>기본 급여:</strong> <span th:text="${payOne.defaultPay}"></span></p>
+    <p><strong>연간 급여:</strong> <span th:text="${payOne.yearPay}"></span></p>
+    <p><strong>인센티브:</strong> <span th:text="${payOne.incentive}"></span></p>
+</div>
+
+<!-- 급여 정보가 없으면 에러 메시지 출력 -->
+<div th:if="${payOne == null}">
+    <p>입력한 ID에 해당하는 급여 정보가 없습니다.</p>
+</div>
+
+<!-- 뒤로 가기 버튼 -->
+<a href="javascript:history.back()">뒤로 가기</a>
+</body>
+</html>

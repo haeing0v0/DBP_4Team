@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <title>MainPage</title>
+    <meta charset="UTF-8">
+    <title>인센티브 입력</title>
 </head>
 <body>
-인센티브 등록 창
+<h1>인센티브 입력</h1>
+<form action="/pay/save" method="POST">
+    <label for="id">직원 ID:</label>
+    <input type="text" id="id" name="id" required><br><br>
+
+    <label for="incentive">인센티브:</label>
+    <input type="number" id="incentive" name="incentive" required><br><br>
+
+    <button type="submit">인센티브 저장</button>
+</form>
 </body>
 </html>
