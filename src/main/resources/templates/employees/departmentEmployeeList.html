@@ -21,8 +21,7 @@
 </form>
 
 <!-- 선택된 부서 이름 표시 -->
-<h2 th:if="${departmentName != null && !departmentName.isEmpty()}">선택된 부서: <span th:text="${departmentName}"></span></h2>
-
+<h2 th:if="${departmentName != null and !departmentName.isEmpty()}">선택된 부서: <span th:text="${departmentName}"></span></h2>
 
 <!-- 직원 목록 테이블 -->
 <table border="1" th:if="${employees != null}">
@@ -47,5 +46,8 @@
     </tr>
     </tbody>
 </table>
+
+<!-- 직원 목록이 없을 경우 -->
+<p th:if="${employees == null}">선택된 부서에 직원이 없습니다.</p>
 </body>
 </html>

@@ -1,6 +1,6 @@
 package HRM.Manage.domain;
 
-public class Company_position {
+public class CompanyPosition {
     Integer position_id;
     String position_name;
     String explanation;

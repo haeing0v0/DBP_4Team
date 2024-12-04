@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -56,30 +57,43 @@ EmployeeController {
         return "redirect:/employees/enter";
     }
 
+    @GetMapping("/employees/list")
+    public String employeeList(Model model) {
+
+
+        return "/employees/employeeList";
+    }
+
+
     @GetMapping("/employees/department")    //부서 선택 시 직원 조회. -> 수정 필요
     public String departmentEmployeeList(@RequestParam(value = "departmentName", required = false) String departmentName, Model model) {
 
         List<Department> departmentNames = departmentService.findDepartmentName();
         model.addAttribute("departmentNames", departmentNames); //부서 이름 리스트
 
-        // 직원 조회는 departmentName이 유효할 때만 수행
+        // 만약 부서가 선택되었으면 해당 부서에 소속된 직원들을 조회
         if (departmentName != null && !departmentName.isEmpty()) {
-            List<Employee> depEmployee = employeeService.findEmployeesByDepartment(departmentName);
-            model.addAttribute("departmentName", departmentName); // 선택된 부서 이름
-            model.addAttribute("employees", depEmployee);         // 선택된 부서의 직원 리스트
-        } else {
-            model.addAttribute("employees", null); // 직원 리스트가 없을 경우 null로 처리
+            // RequestMapping을 이용해 분리된 메소드 호출
+            return getEmployeesDepartment(departmentName, model);
         }
+
 
         return "employees/departmentEmployeeList";
     }
 
+    @RequestMapping("/employees/department/employeeList")
+    public String getEmployeesDepartment(@RequestParam("departmentName") String departmentName, Model model) {
+        // 부서 이름에 해당하는 직원 목록을 조회
+        List<Employee> depEmployee = employeeService.findEmployeesByDepartment(departmentName);
 
-//    @GetMapping(value = "/employees/department")
-//    public String list(Model model) {
-//        List<Employee> employees = employeeService.findDepartmentEmployee();
-//
-//    }
+        model.addAttribute("departmentName", departmentName); // 선택된 부서 이름
+        model.addAttribute("employees", depEmployee); // 선택된 부서의 직원 리스트
+
+        return "employees/departmentEmployeeList"; // 직원 목록을 출력할 뷰로 이동
+    }
+
+
+
 
 
 

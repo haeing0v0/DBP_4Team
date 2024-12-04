@@ -1,6 +1,4 @@
 package HRM.Manage.domain;
-import java.util.HashSet;
-import java.util.Set;
 // 부서, 직원 => 1 : N
 
 public class Department {
@@ -8,8 +6,6 @@ public class Department {
     String department_name;
     Integer department_totalsales;
 
-    //일대다 직원 목록
-//    private Set<Employee> employees = new HashSet<>();
 
     public Integer getDepartment_id() {
         return department_id;
