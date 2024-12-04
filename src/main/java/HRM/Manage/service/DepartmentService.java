@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 @Transactional
 public class DepartmentService {
-    private DepartmentRepository departmentRepository;
+    private final DepartmentRepository departmentRepository;
     public DepartmentService(DepartmentRepository departmentRepository) {this.departmentRepository = departmentRepository;}
 
     public List<Department> findDepartment() {

@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 @Transactional
 public class CompanyPositionService {
-    CompanyPositionRepository companyPositionRepository;
+    private final CompanyPositionRepository companyPositionRepository;
     public CompanyPositionService(CompanyPositionRepository companyPositionRepository) {this.companyPositionRepository = companyPositionRepository;}
 
     public List<CompanyPosition> findAllCompanyPosition(){

@@ -7,11 +7,8 @@ import HRM.Manage.service.EmployeeService;
 import HRM.Manage.DTO.employeeStateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -81,7 +78,7 @@ EmployeeController {
         return "employees/departmentEmployeeList";
     }
 
-    @RequestMapping("/employees/department/employeeList")
+    @RequestMapping(value = "/employees/getEmployeesDepartment", method = RequestMethod.GET)
     public String getEmployeesDepartment(@RequestParam("departmentName") String departmentName, Model model) {
         // 부서 이름에 해당하는 직원 목록을 조회
         List<Employee> depEmployee = employeeService.findEmployeesByDepartment(departmentName);
@@ -89,7 +86,7 @@ EmployeeController {
         model.addAttribute("departmentName", departmentName); // 선택된 부서 이름
         model.addAttribute("employees", depEmployee); // 선택된 부서의 직원 리스트
 
-        return "employees/departmentEmployeeList"; // 직원 목록을 출력할 뷰로 이동
+        return "employees/employeeList"; // 직원 목록을 출력할 뷰로 이동
     }
 
 

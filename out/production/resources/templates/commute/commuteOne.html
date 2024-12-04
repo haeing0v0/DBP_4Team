@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commute 정보 조회</title>
+</head>
+<body>
+<h1>Commute 정보 조회</h1>
+
+<!-- ID 입력 폼 -->
+<form action="/commute/find" method="get">
+    <label for="id">직원 ID:</label>
+    <input type="text" id="id" name="id" required>
+    <button type="submit">조회</button>
+</form>
+
+<div>
+    <!-- 조회 결과 표시 -->
+    <div th:if="${message}">
+        <p th:text="${message}"></p>
+    </div>
+
+    <div th:if="${commute}">
+        <h2>Commute 정보</h2>
+        <table>
+            <tr>
+                <th>Commute ID</th>
+                <td th:text="${commute.commute_id}"></td>
+            </tr>
+            <tr>
+                <th>출근 시간</th>
+                <td th:text="${#dates.format(commute.startWorkTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            </tr>
+            <tr>
+                <th>퇴근 시간</th>
+                <td th:text="${#dates.format(commute.finishWorkTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            </tr>
+            <tr>
+                <th>근무일</th>
+                <td th:text="${#dates.format(commute.workDay, 'yyyy-MM-dd')}"></td>
+            </tr>
+            <tr>
+                <th>일 근무 시간</th>
+                <td th:text="${commute.dayWorkTime}"></td>
+            </tr>
+            <tr>
+                <th>월 근무 시간</th>
+                <td th:text="${commute.monthWorkTime}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
