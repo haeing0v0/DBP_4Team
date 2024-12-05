@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class
@@ -56,10 +57,34 @@ EmployeeController {
 
     @GetMapping("/employees/list")
     public String employeeList(Model model) {
-
+        List<Employee> employees = employeeService.findEmployee();
+        System.out.println("Employees: " + employees);
+        model.addAttribute("employees", employees);
 
         return "employees/employeeList";
     }
+
+    @GetMapping("/employees/search")
+    public String searchEmployee(@RequestParam(value = "id", required = false) Integer id, Model model) {
+        if (id == null) {
+            // ID가 없으면 검색 화면 반환
+            model.addAttribute("message", "직원 ID를 입력해주세요.");
+            return "employees/employeeSearch";
+        }
+
+        Optional<Employee> employeeOne = employeeService.findOne(id);
+
+        if (employeeOne.isEmpty()) {
+            // 검색 결과가 없는 경우
+            model.addAttribute("message", "해당 ID의 직원이 존재하지 않습니다.");
+            return "employees/employeeSearch";
+        }
+
+        // 검색 결과가 있는 경우
+        model.addAttribute("employeeOne", employeeOne);
+        return "employees/employeeSearchResult";
+    }
+
 
     @GetMapping("/employees/department")
     public String departmentHandler(

@@ -53,7 +53,7 @@ public class jdbcEmployeeRepository implements EmployeeRepository{
 
     @Override
     public Optional<Employee> findById(Integer id) {
-        String sql = "select * from customer where id = ?";
+        String sql = "select * from EMPLOYEE where EMPLOYEE_ID = ?";
         Connection conn = null;     PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {

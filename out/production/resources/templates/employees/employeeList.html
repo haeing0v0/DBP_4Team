@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>직원 목록</title>
+</head>
+<body>
+<h1>직원 목록</h1>
+
+<!-- 직원 목록이 없는 경우 -->
+<p th:if="${employees == null || employees.isEmpty()}">직원이 없습니다.</p>
+
+<!-- 직원 목록 테이블 -->
+<table border="1" th:if="${employees != null && !employees.isEmpty()}">
+    <thead>
+    <tr>
+        <th>직원 ID</th>
+        <th>이름</th>
+        <th>전화번호</th>
+        <th>이메일</th>
+        <th>나이</th>
+        <th>성별</th>
+        <th>입사일</th>
+        <th>직책 ID</th>
+        <th>급여 ID</th>
+        <th>부서 ID</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee.employee_id}"></td>
+        <td th:text="${employee.employee_name}"></td>
+        <td th:text="${employee.phonenumber}"></td>
+        <td th:text="${employee.email}"></td>
+        <td th:text="${employee.age}"></td>
+        <td th:text="${employee.gender}"></td>
+        <td th:text="${#dates.format(employee.date, 'yyyy-MM-dd')}"></td>
+        <td th:text="${employee.position_id_fk}"></td>
+        <td th:text="${employee.pay_id_fk}"></td>
+        <td th:text="${employee.department_id_fk}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

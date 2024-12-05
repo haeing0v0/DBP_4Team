@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>직원 검색 결과</title>
+</head>
+<body>
+<h1>직원 검색 결과</h1>
+
+<!-- 직원 정보 테이블 -->
+<table border="1" th:if="${employeeOne != null && employeeOne.isPresent()}">
+    <thead>
+    <tr>
+        <th>직원 ID</th>
+        <th>이름</th>
+        <th>전화번호</th>
+        <th>이메일</th>
+        <th>나이</th>
+        <th>성별</th>
+        <th>입사일</th>
+        <th>직책 ID</th>
+        <th>급여 ID</th>
+        <th>부서 ID</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:with="employee=${employeeOne.get()}">
+        <td th:text="${employee.employee_id}"></td>
+        <td th:text="${employee.employee_name}"></td>
+        <td th:text="${employee.phonenumber}"></td>
+        <td th:text="${employee.email}"></td>
+        <td th:text="${employee.age}"></td>
+        <td th:text="${employee.gender}"></td>
+        <td th:text="${#dates.format(employee.date, 'yyyy-MM-dd')}"></td>
+        <td th:text="${employee.position_id_fk}"></td>
+        <td th:text="${employee.pay_id_fk}"></td>
+        <td th:text="${employee.department_id_fk}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- 직원이 없는 경우 메시지 -->
+<p th:if="${employeeOne == null || employeeOne.isEmpty()}">해당 직원 ID로 검색된 결과가 없습니다.</p>
+
+<!-- 다시 검색하기 링크 -->
+<a href="/employees/search">다시 검색하기</a>
+</body>
+</html>

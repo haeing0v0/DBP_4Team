@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>직원 검색</title>
+</head>
+<body>
+<h1>직원 검색</h1>
+
+<!-- 검색 폼 -->
+<form action="/employees/search" method="get">
+    <label for="id">직원 ID:</label>
+    <input type="number" id="id" name="id" placeholder="직원 ID를 입력하세요" required>
+    <button type="submit">검색</button>
+</form>
+
+<!-- 검색 결과가 없을 경우 -->
+<p th:if="${employeeOne == null || employeeOne.isEmpty()}">직원을 검색하려면 ID를 입력하세요.</p>
+</body>
+</html>
