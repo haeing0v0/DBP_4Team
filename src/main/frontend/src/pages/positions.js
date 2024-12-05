@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/positions.css";
+//import "../styles/positions.css";
 import Sidebar from "../components/Sidebar";
 
 const Positions = () => {

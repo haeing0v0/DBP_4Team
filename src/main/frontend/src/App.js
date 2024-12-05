@@ -4,7 +4,8 @@ import Main from './pages/main.js';
 import CheckIn from './pages/check_in.js';
 import Check from './pages/check.js'; 
 import Departments from './pages/departments.js'; 
-import Positions from './pages/positions.js';
+import Positions from './pages/positions.js'; 
+import Register from './pages/register.js';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/check" element={<Check />} />
         <Route path="/departments" element={<Departments />} />
         <Route path="/positions" element={<Positions />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );

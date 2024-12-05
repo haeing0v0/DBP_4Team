@@ -1,0 +1,42 @@
+.register-wrap {
+    margin-top: 50px;
+  }
+  
+  .register-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .register-table td,
+  .register-table th {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .register-table td:first-child,
+  .register-table td:nth-child(3) {
+    background-color: #E5E8EB;
+    font-weight: bold;
+    color: #4F7396;
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+  }
+  
+  .register-table input {
+    width: 95%;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .register-table input:focus {
+    border-color: #6677B3;
+    box-shadow: 0 0 5px rgba(102, 119, 179, 0.5);
+  }
