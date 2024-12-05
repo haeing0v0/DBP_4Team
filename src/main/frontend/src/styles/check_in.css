@@ -1,0 +1,85 @@
+.wrap {
+    padding: 30px 150px;
+  }
+  
+  .checkin-wrap {
+    padding: 10px 200px;
+  }
+  
+  .sub-title {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 45px;
+    color: #0D141C;
+  }
+  
+  .attendance-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .time-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+
+  .time-div {
+    display: grid;
+  }
+  
+  input[type="text"],
+  input[type="time"],
+  input[type="date"] {
+    padding: 15px 10px;
+    font-size: 16px;
+    border: 1px solid #D1DBE8;
+    border-radius: 12px;
+    outline: none;
+    color: #4F7396;
+    background-color: #F7FAFC;
+  }
+  
+  input[type="text"]:focus,
+  input[type="time"]:focus,
+  input[type="date"]:focus {
+    border-color: #6677B3;
+    box-shadow: 0 0 5px rgba(102, 119, 179, 0.5);
+  }
+
+  input::placeholder {
+    color: #4F7396;
+  }
+
+  .submit-button {
+    padding: 13px 30px;
+    background-color: #6677B3;
+    color: white;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #5564a3;
+  }
+  
+  .button-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

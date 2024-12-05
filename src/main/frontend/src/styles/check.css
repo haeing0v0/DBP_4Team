@@ -1,82 +1,102 @@
 /* 공통 스타일 */
-.wrap {
-    padding: 30px 100px;
+.main-container {
+    margin-left: 250px; /* 사이드바 너비 */
+    padding: 20px;
   }
   
-  .checkin-wrap {
-    padding: 10px 200px;
+  .wrap {
+    padding: 50px 100px;
   }
   
-  .sub-title {
-    font-style: normal;
-    font-weight: 800;
+  .dashboard-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .check-form {
+    margin-bottom: 20px;
+  }
+  
+  .search-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .input-container {
+    position: relative;
+    flex: 1;
+  }
+  
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
     font-size: 20px;
-    line-height: 45px;
-    color: #0D141C;
+    color: #999;
   }
   
-  .attendance-form {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    margin-top: 20px;
-  }
-  
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  .time-group {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-  }
-
-  .time-div {
-    display: grid;
-  }
-  
-  input[type="text"],
-  input[type="time"],
-  input[type="date"] {
-    padding: 15px 10px;
+  .check-search-input {
+    width: 96%;
+    padding: 10px 10px 10px 40px;
     font-size: 16px;
-    border: 1px solid #D1DBE8;
-    border-radius: 12px;
-    outline: none;
-    color: #4F7396;
-    background-color: #F7FAFC;
+    border: 1px solid #ccc;
+    border-radius: 5px;
   }
   
-  input[type="text"]:focus,
-  input[type="time"]:focus,
-  input[type="date"]:focus {
+  .search-input:focus {
     border-color: #6677B3;
     box-shadow: 0 0 5px rgba(102, 119, 179, 0.5);
   }
   
-  .submit-button {
-    padding: 13px 30px;
+  .search-button {
+    padding: 10px 20px;
     background-color: #6677B3;
     color: white;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
     font-size: 16px;
+    font-weight: bold;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
-  .submit-button:hover {
+  .search-button:hover {
     background-color: #5564a3;
   }
   
-  .button-div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .table-container {
+    margin-top: 20px;
   }
+  
+  .attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  .attendance-table th,
+  .attendance-table td {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4F7396;
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .attendance-table th {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #0D141C;
+    background-color: #F7FaFC;
+    font-weight: bold;
+  }
+  

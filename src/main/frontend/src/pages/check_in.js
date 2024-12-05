@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/check.css";
+import "../styles/check_in.css";
 import Sidebar from '../components/Sidebar';
 
 const CheckIn = () => {
