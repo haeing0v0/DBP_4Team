@@ -1,3 +1,13 @@
+/* 공통 스타일 */
+.main-container {
+    margin-left: 250px; /* 사이드바 너비 */
+    padding: 20px;
+  }
+  
+  .wrap {
+    padding: 50px 100px;
+  }
+  
   .dashboard-title {
     font-size: 24px;
     font-weight: bold;
