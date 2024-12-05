@@ -6,7 +6,8 @@ import Check from './pages/check.js';
 import Departments from './pages/departments.js'; 
 import Positions from './pages/positions.js'; 
 import Register from './pages/register.js'; 
-import Salary from './pages/salary.js';
+import Salary from './pages/salary.js'; 
+import Incentives from './pages/incentives.js';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/positions" element={<Positions />} />
         <Route path="/register" element={<Register />} />
         <Route path="/salary" element={<Salary />} />
+        <Route path="/incentives" element={<Incentives />} />
       </Routes>
     </BrowserRouter>
   );
