@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>출퇴근 기록</title>
+</head>
+<body>
+<h1>출퇴근 기록</h1>
+
+<!-- 출퇴근 정보 테이블 -->
+<table border="1" th:if="${commuteOne != null && commuteOne.isPresent()}">
+    <thead>
+    <tr>
+        <th>출퇴근 ID</th>
+        <th>출근 시간</th>
+        <th>퇴근 시간</th>
+        <th>근무 날짜</th>
+        <th>일 근무 시간</th>
+        <th>월 근무 시간</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:with="commute=${commuteOne.get()}">
+        <td th:text="${commute.commute_id}"></td>
+        <td th:text="${#dates.format(commute.startWorkTime, 'HH:mm:ss')}"></td>
+        <td th:text="${#dates.format(commute.finishWorkTime, 'HH:mm:ss')}"></td>
+        <td th:text="${#dates.format(commute.workDay, 'yyyy-MM-dd')}"></td>
+        <td th:text="${commute.dayWorkTime} + ' 시간'"></td>
+        <td th:text="${commute.monthWorkTime} + ' 시간'"></td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- 검색 결과가 없는 경우 -->
+<p th:if="${commuteOne == null || commuteOne.isEmpty()}">해당 ID로 출퇴근 기록을 찾을 수 없습니다.</p>
+
+<!-- 다시 검색하기 -->
+<a href="/commute/find">다시 검색하기</a>
+</body>
+</html>
