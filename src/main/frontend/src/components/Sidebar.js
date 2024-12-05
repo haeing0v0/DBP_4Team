@@ -77,6 +77,11 @@ function Sidebar() {
                   </NavLink>
                 </li>
                 <li>
+                  <NavLink to="/employees" activeClassName="active">
+                    직원 목록
+                  </NavLink>
+                </li>
+                <li>
                   <NavLink to="/positions" activeClassName="active">
                     직급 목록
                   </NavLink>
