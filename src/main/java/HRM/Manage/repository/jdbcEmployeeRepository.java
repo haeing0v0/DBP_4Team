@@ -164,7 +164,7 @@ public class jdbcEmployeeRepository implements EmployeeRepository{
     public List<Employee> findEmployeesByDepartment(String name) {
         String sql = "SELECT e.EMPLOYEE_ID, e.EMPLOYEE_NAME, e.PHONENUMBER, e.EMAIL, e.GENDER " +
                 "FROM Employee e " +
-                "JOIN Department d ON e.department_id_fk = d.department_id " +
+                "JOIN Department d ON e.department_id = d.department_id " +
                 "WHERE d.department_name = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;

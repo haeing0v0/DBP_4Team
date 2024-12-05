@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>부서별 직원 목록</title>
+</head>
+<body>
+<h1>부서별 직원 목록</h1>
+
+<!-- 부서 선택 -->
+<h2>부서를 선택하세요:</h2>
+<ul>
+    <li th:each="department : ${departmentNames}">
+        <a th:href="@{/employees/department(departmentName=${department.department_name})}"
+           th:text="${department.department_name}"></a>
+    </li>
+</ul>
+
+
+</body>
+</html>

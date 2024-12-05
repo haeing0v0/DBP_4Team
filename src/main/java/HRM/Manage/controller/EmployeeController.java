@@ -58,36 +58,36 @@ EmployeeController {
     public String employeeList(Model model) {
 
 
-        return "/employees/employeeList";
+        return "employees/employeeList";
     }
 
+    @GetMapping("/employees/department")
+    public String departmentHandler(
+            @RequestParam(value = "departmentName", required = false) String departmentName,
+            Model model) {
 
-    @GetMapping("/employees/department")    //부서 선택 시 직원 조회. -> 수정 필요
-    public String departmentEmployeeList(@RequestParam(value = "departmentName", required = false) String departmentName, Model model) {
-
+        // 부서 이름 리스트 조회 (항상 필요)
         List<Department> departmentNames = departmentService.findDepartmentName();
-        model.addAttribute("departmentNames", departmentNames); //부서 이름 리스트
+        model.addAttribute("departmentNames", departmentNames);
 
-        // 만약 부서가 선택되었으면 해당 부서에 소속된 직원들을 조회
-        if (departmentName != null && !departmentName.isEmpty()) {
-            // RequestMapping을 이용해 분리된 메소드 호출
-            return getEmployeesDepartment(departmentName, model);
+        if (departmentName == null || departmentName.isEmpty()) {
+            // departmentName이 없으면 부서 선택 화면 반환
+            return "employees/departmentSelect";
         }
 
+        // departmentName이 있으면 해당 부서의 직원 목록 조회
+//        System.out.println("Selected Department: " + departmentName);
 
+        List<Employee> depEmployee = employeeService.findEmployeesByDepartment(departmentName);
+//        System.out.println("Employees: " + depEmployee);
+
+        model.addAttribute("departmentName", departmentName); // 선택된 부서 이름 전달
+        model.addAttribute("employees", depEmployee); // 직원 리스트 전달
+
+        // 직원 목록 화면 반환
         return "employees/departmentEmployeeList";
     }
 
-    @RequestMapping(value = "/employees/getEmployeesDepartment", method = RequestMethod.GET)
-    public String getEmployeesDepartment(@RequestParam("departmentName") String departmentName, Model model) {
-        // 부서 이름에 해당하는 직원 목록을 조회
-        List<Employee> depEmployee = employeeService.findEmployeesByDepartment(departmentName);
-
-        model.addAttribute("departmentName", departmentName); // 선택된 부서 이름
-        model.addAttribute("employees", depEmployee); // 선택된 부서의 직원 리스트
-
-        return "employees/employeeList"; // 직원 목록을 출력할 뷰로 이동
-    }
 
 
 

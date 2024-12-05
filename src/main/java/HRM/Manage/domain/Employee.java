@@ -18,7 +18,7 @@ public class Employee {
     Integer position_id_fk;
     Integer pay_id_fk;
     Integer department_id_fk;
-    Integer workDays;
+    Integer workDays = 0;
 
 
 
