@@ -3,13 +3,15 @@ package HRM.Manage.controller;
 import HRM.Manage.service.DepartmentService;
 import HRM.Manage.domain.Department;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/api/departments")
 public class DepartmentController {
     private final DepartmentService departmentService;
 
@@ -18,12 +20,12 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @GetMapping("/department/list") //부서 목록 조회
-    public String departmentList(Model model) {
+    @GetMapping 
+    public ResponseEntity<List<Department>> getDepartments() {
         List<Department> departments = departmentService.findDepartment();
-        model.addAttribute("departments", departments);
-        return "department/departmentList";
+        if (departments.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(departments); 
     }
-
-
 }

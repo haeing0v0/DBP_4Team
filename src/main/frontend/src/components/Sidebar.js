@@ -12,7 +12,6 @@ function Sidebar() {
   const [expandedMenu, setExpandedMenu] = useState(null);
 
   useEffect(() => {
-    // 현재 경로에 따라 메뉴를 열어줍니다.
     if (location.pathname.startsWith('/check')) {
       setExpandedMenu('attendance');
     } else if (location.pathname.startsWith('/departments')) {

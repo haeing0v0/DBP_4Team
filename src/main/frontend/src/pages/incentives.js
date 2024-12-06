@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "../styles/incentives.css";
 import Sidebar from "../components/Sidebar";
 
@@ -7,17 +8,32 @@ const Incentives = () => {
     employeeId: "",
     incentive: "",
   });
+  const [message, setMessage] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Incentive Submitted:", formData);
-    alert("인센티브가 등록되었습니다!");
-    setFormData({ employeeId: "", incentive: "" }); // 입력값 초기화
+    try {
+      const response = await axios.post("http://localhost:8080/api/pay/save", null, {
+        params: {
+          id: formData.employeeId,
+          incentive: formData.incentive,
+        },
+      });
+
+      setMessage(response.data); 
+      alert(response.data);
+    } catch (error) {
+      console.error(error);
+      setMessage(error.response?.data || "인센티브 등록 중 오류가 발생했습니다.");
+      alert(error.response?.data || "인센티브 등록 중 오류가 발생했습니다.");
+    }
+
+    setFormData({ employeeId: "", incentive: "" });
   };
 
   return (
@@ -52,11 +68,12 @@ const Incentives = () => {
               </div>
             </div>
             <div className="button-div">
-                <button type="submit" className="submit-button">
+              <button type="submit" className="submit-button">
                 등록
-                </button>
+              </button>
             </div>
           </form>
+          {message && <p className="message">{message}</p>}
         </div>
       </div>
     </>

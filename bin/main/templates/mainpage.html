@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>인사관리 시스템</title>
+</head>
+<body>
+<h1>인사관리 메인페이지, 대시보드 반환</h1>
+
+<p>전체 사원 수: <span th:text="${totalEmployees}"></span></p>
+
+<h2>부서별 사원 통계</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>부서명</th>
+        <th>직원 수</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="dept : ${departmentStats}">
+        <td th:text="${dept.departmentName}"></td>
+        <td th:text="${dept.employeeCount}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>직급별 사원 통계</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>직급명</th>
+        <th>직원 수</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pos : ${positionStats}">
+        <td th:text="${pos.positionName}"></td>
+        <td th:text="${pos.employeeCount}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>부서 매출 상위 3개</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>부서명</th>
+        <th>총 매출</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="dept : ${Top3Department}">
+        <td th:text="${dept.department_name}"></td>
+        <td th:text="${dept.department_totalsales}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

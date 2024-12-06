@@ -63,7 +63,6 @@ const Main = () => {
                     </div>
                 </div>
 
-            {/* 하단 그래프 */}
             <div className="chart-container">
                 <h3>부서별 사원 수</h3>
                 <canvas id="departmentChart"></canvas>

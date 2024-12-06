@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>부서 목록</title>
+</head>
+<body>
+<h1>부서 목록</h1>
+
+<!-- 부서 목록 테이블 -->
+<table border="1" th:if="${departments != null}">
+    <thead>
+    <tr>
+        <th>부서 ID</th>
+        <th>부서 이름</th>
+        <th>총 매출</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 부서 목록을 반복하며 테이블에 출력 -->
+    <tr th:each="department : ${departments}">
+        <td th:text="${department.department_id}"></td>
+        <td th:text="${department.department_name}"></td>
+        <td th:text="${department.department_totalsales}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- 부서 목록이 없을 경우 -->
+<p th:if="${departments == null or #lists.isEmpty(departments)}">부서 목록이 없습니다.</p>
+</body>
+</html>

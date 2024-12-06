@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "../styles/register.css";
 import Sidebar from "../components/Sidebar";
 
@@ -16,15 +17,83 @@ const Register = () => {
     departmentCode: "",
   });
 
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const validateForm = () => {
+    const requiredFields = [
+      "employeeId",
+      "name",
+      "email",
+      "phone",
+      "age",
+      "gender",
+      "joinDate",
+      "positionId",
+      "salaryId",
+      "departmentCode",
+    ];
+
+    for (let field of requiredFields) {
+      if (!formData[field]) {
+        return `필수 입력 필드 (${field})가 비어 있습니다.`;
+      }
+    }
+    return null;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted Data:", formData);
-    alert("직원 정보가 등록되었습니다!");
+
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      alert(validationError);
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:8080/api/employees/create", {
+        employee_id: formData.employeeId,
+        employee_name: formData.name,
+        email: formData.email,
+        phonenumber: formData.phone,
+        age: formData.age,
+        gender: formData.gender,
+        date: formData.joinDate,
+        position_id_fk: formData.positionId,
+        pay_id_fk: formData.salaryId,
+        department_id_fk: formData.departmentCode,
+      });
+
+      setMessage("직원 정보가 성공적으로 등록되었습니다.");
+      alert("직원 정보가 성공적으로 등록되었습니다.");
+
+      setFormData({
+        employeeId: "",
+        name: "",
+        email: "",
+        phone: "",
+        age: "",
+        gender: "",
+        joinDate: "",
+        positionId: "",
+        salaryId: "",
+        departmentCode: "",
+      });
+      setError("");
+    } catch (err) {
+      console.error(err);
+
+      const errorMessage = err.response?.data || "직원 정보 등록 중 오류가 발생했습니다.";
+      setError(errorMessage);
+      alert(errorMessage);
+    }
   };
 
   return (
@@ -100,7 +169,7 @@ const Register = () => {
                         name="gender"
                         value={formData.gender}
                         onChange={handleInputChange}
-                        placeholder="성별(남/여)"
+                        placeholder="성별(남성/여성)"
                       />
                     </td>
                   </tr>
@@ -151,10 +220,12 @@ const Register = () => {
               </table>
               <div className="button-div">
                 <button type="submit" className="submit-button">
-                    등록
+                  등록
                 </button>
               </div>
             </form>
+            {message && <p className="success-message">{message}</p>}
+            {error && <p className="error-message">{error}</p>}
           </div>
         </div>
       </div>

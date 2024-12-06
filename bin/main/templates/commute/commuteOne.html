@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>출퇴근 기록 검색</title>
+</head>
+<body>
+<h1>출퇴근 기록 검색</h1>
+
+<!-- 메시지 출력 -->
+<p th:if="${message != null}" th:text="${message}"></p>
+
+<!-- 검색 폼 -->
+<form action="/commute/find" method="get">
+    <label for="id">직원 ID:</label>
+    <input type="number" id="id" name="id" placeholder="직원 ID를 입력하세요" required>
+    <button type="submit">검색</button>
+</form>
+
+</body>
+</html>

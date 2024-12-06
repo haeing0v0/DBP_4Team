@@ -1,13 +1,33 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "../styles/salary.css";
 import Sidebar from "../components/Sidebar";
 
 const Salary = () => {
-  const [showTable, setShowTable] = useState(false);
+  const [employeeId, setEmployeeId] = useState("");
+  const [salaryData, setSalaryData] = useState([]); 
+  const [error, setError] = useState(""); 
+  const [loading, setLoading] = useState(false); 
 
-  const handleSearch = (event) => {
+  const handleSearch = async (event) => {
     event.preventDefault();
-    setShowTable(true); // 버튼 클릭 시 표를 표시
+    setLoading(true);
+    setError("");
+    setSalaryData([]);
+
+    try {
+      const response = await axios.get(`http://localhost:8080/api/pay/${employeeId}`);
+      if (response.data && Array.isArray(response.data)) {
+        setSalaryData(response.data);
+      } else {
+        setError("잘못된 데이터 형식입니다.");
+      }
+    } catch (err) {
+      console.error("Error fetching salary data:", err);
+      setError("해당 직원 ID의 급여 정보를 찾을 수 없습니다.");
+    } finally {
+      setLoading(false); 
+    }
   };
 
   return (
@@ -23,6 +43,8 @@ const Salary = () => {
                   type="text"
                   placeholder="Employee ID"
                   className="check-search-input"
+                  value={employeeId}
+                  onChange={(e) => setEmployeeId(e.target.value)}
                 />
               </div>
               <button type="submit" className="submit-button">
@@ -30,23 +52,29 @@ const Salary = () => {
               </button>
             </form>
           </div>
-          {showTable && (
+          {loading && <p>데이터를 불러오는 중입니다...</p>}
+          {error && <p className="error-message">{error}</p>}
+          {salaryData.length > 0 && (
             <div className="table-container">
-              <h3 className="sub-title">정해인님의 급여</h3>
+              <h3 className="sub-title">직원 ID: {employeeId} 급여</h3>
               <table className="salary-table">
                 <tbody>
-                  <tr>
-                    <td className="label">기본급</td>
-                    <td>3,200,000</td>
-                  </tr>
-                  <tr>
-                    <td className="label">연봉</td>
-                    <td>38,000,000</td>
-                  </tr>
-                  <tr>
-                    <td className="label">인센티브</td>
-                    <td>420,000</td>
-                  </tr>
+                  {salaryData.map((pay, index) => (
+                    <React.Fragment key={index}>
+                      <tr>
+                        <td className="label">기본급</td>
+                        <td>{pay.baseSalary ? pay.baseSalary.toLocaleString() : "N/A"}</td>
+                      </tr>
+                      <tr>
+                        <td className="label">연봉</td>
+                        <td>{pay.annualSalary ? pay.annualSalary.toLocaleString() : "N/A"}</td>
+                      </tr>
+                      <tr>
+                        <td className="label">인센티브</td>
+                        <td>{pay.incentive ? pay.incentive.toLocaleString() : "N/A"}</td>
+                      </tr>
+                    </React.Fragment>
+                  ))}
                 </tbody>
               </table>
             </div>
