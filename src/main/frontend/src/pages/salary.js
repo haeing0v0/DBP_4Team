@@ -63,11 +63,11 @@ const Salary = () => {
                     <React.Fragment key={index}>
                       <tr>
                         <td className="label">기본급</td>
-                        <td>{pay.baseSalary ? pay.baseSalary.toLocaleString() : "N/A"}</td>
+                        <td>{pay.default_pay ? pay.default_pay.toLocaleString() : "N/A"}</td>
                       </tr>
                       <tr>
                         <td className="label">연봉</td>
-                        <td>{pay.annualSalary ? pay.annualSalary.toLocaleString() : "N/A"}</td>
+                        <td>{pay.year_pay ? pay.year_pay.toLocaleString() : "N/A"}</td>
                       </tr>
                       <tr>
                         <td className="label">인센티브</td>
