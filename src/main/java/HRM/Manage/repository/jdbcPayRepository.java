@@ -58,7 +58,7 @@ public class jdbcPayRepository implements PayRepository{
 
     @Override
     public boolean saveIncentive(Integer id, int incentive) {
-        String sql = "UPDATE PAY SET INCENTIVE = INCENTIVE + ? WHERE EMPLOYEE_ID = ?";
+        String sql = "UPDATE PAY SET INCENTIVE = NVL(INCENTIVE, 0) + ? WHERE EMPLOYEE_ID = ?";
         Connection conn = null;     PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
@@ -68,7 +68,9 @@ public class jdbcPayRepository implements PayRepository{
             pstmt.setInt(2, id);
 
             int rows = pstmt.executeUpdate();
+            if(rows == 0) System.out.println("No rows updated. Check EMPLOYEE_ID " + id);
             return rows>0;
+
         } catch (Exception e) {
             throw new IllegalStateException(e);
         } finally {

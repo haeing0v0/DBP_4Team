@@ -23,7 +23,6 @@ public class PayController {
 
     @GetMapping("/pay/one")
     public String payOne(@RequestParam(value = "id", required = false) Integer id, Model model) {
-        System.out.println(id);
         if(id == null) {
             return "pay/payOne";
         }
@@ -40,6 +39,8 @@ public class PayController {
     @PostMapping("/pay/save")
     public String save(@RequestParam(value = "id") Integer id, @RequestParam(value = "incentive") Integer incentive, Model model) {
         boolean isSuccess = payService.saveIncen(id, incentive);
+        System.out.println("Updating EMPLOYEE_ID: " + id + " with incentive: " + incentive);
+
         // 성공 여부에 따라 다른 뷰로 이동
         if (isSuccess) {
             model.addAttribute("message", "인센티브가 성공적으로 업데이트되었습니다.");
