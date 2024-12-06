@@ -1,0 +1,45 @@
+  .table-container {
+    margin-top: 20px;
+  }
+  
+  .department-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  .department-table th,
+  .department-table td {
+    padding: 15px 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .department-table th {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #6677B3;
+    background-color: #F7FAFC;
+    text-align: left;
+  }
+  
+  .department-table td {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #242424;
+  }
+  
+  .department-table tr:last-child td {
+    border-bottom: none; 
+  }
+  
+  .department-table tr:hover {
+    background-color: #EDF2F7;
+    transition: background-color 0.3s ease;
+  }
+  

@@ -1,0 +1,92 @@
+  .dashboard-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .check-form {
+    margin-bottom: 20px;
+  }
+  
+  .search-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .input-container {
+    position: relative;
+    flex: 1;
+  }
+  
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #999;
+  }
+  
+  .check-search-input {
+    width: 96%;
+    padding: 10px 10px 10px 40px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .search-input:focus {
+    border-color: #6677B3;
+    box-shadow: 0 0 5px rgba(102, 119, 179, 0.5);
+  }
+  
+  .search-button {
+    padding: 10px 20px;
+    background-color: #6677B3;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .search-button:hover {
+    background-color: #5564a3;
+  }
+  
+  .table-container {
+    margin-top: 20px;
+  }
+  
+  .attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  .attendance-table th,
+  .attendance-table td {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4F7396;
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .attendance-table th {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #0D141C;
+    background-color: #F7FaFC;
+    font-weight: bold;
+  }
+  

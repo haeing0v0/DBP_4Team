@@ -1,0 +1,33 @@
+  .table-container {
+    margin-top: 20px;
+  }
+
+  .salary-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .salary-table td {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4F7396;
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+  }
+  
+  .salary-table .label {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4F7396;
+    background-color: #E5E8EB;
+    font-weight: bold;
+    width: 25%;
+    padding: 20px;
+  }
+  
