@@ -106,6 +106,7 @@ public class jdbcEmployeeRepository implements EmployeeRepository{
                 employee.setPosition_id_fk(rs.getInt(8));
                 employee.setPay_id_fk(rs.getInt(9));
                 employee.setDepartment_id_fk(rs.getInt(10));
+                employee.setMonth_pay(rs.getInt(11));
                 employees.add(employee);
             }
             return employees;

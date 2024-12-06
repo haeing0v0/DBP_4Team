@@ -2,17 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>직원 목록</title>
 </head>
 <body>
 <h1>직원 목록</h1>
 
-<!-- 직원 목록이 없는 경우 -->
-<p th:if="${employees == null || employees.isEmpty()}">직원이 없습니다.</p>
-
 <!-- 직원 목록 테이블 -->
-<table border="1" th:if="${employees != null && !employees.isEmpty()}">
+<table border="1">
     <thead>
     <tr>
         <th>직원 ID</th>
@@ -21,13 +17,15 @@
         <th>이메일</th>
         <th>나이</th>
         <th>성별</th>
-        <th>입사일</th>
+        <th>입사 날짜</th>
         <th>직책 ID</th>
         <th>급여 ID</th>
         <th>부서 ID</th>
+        <th>월급</th>
     </tr>
     </thead>
     <tbody>
+    <!-- 직원 데이터를 반복해서 표시 -->
     <tr th:each="employee : ${employees}">
         <td th:text="${employee.employee_id}"></td>
         <td th:text="${employee.employee_name}"></td>
@@ -35,12 +33,17 @@
         <td th:text="${employee.email}"></td>
         <td th:text="${employee.age}"></td>
         <td th:text="${employee.gender}"></td>
-        <td th:text="${#dates.format(employee.date, 'yyyy-MM-dd')}"></td>
+        <td th:text="${employee.date}"></td>
         <td th:text="${employee.position_id_fk}"></td>
         <td th:text="${employee.pay_id_fk}"></td>
         <td th:text="${employee.department_id_fk}"></td>
+        <td th:text="${employee.month_pay}"></td>
     </tr>
     </tbody>
 </table>
+
+<!-- 뒤로 가기 버튼 -->
+<br>
+<a href="/"><button>메인 화면으로</button></a>
 </body>
 </html>
