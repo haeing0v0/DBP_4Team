@@ -9,6 +9,7 @@ import Register from './pages/register.js';
 import Salary from './pages/salary.js'; 
 import Incentives from './pages/incentives.js'; 
 import Employees from './pages/employees.js';
+import DepartmentEmployees from './pages/departmentEmployees.js';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/salary" element={<Salary />} />
         <Route path="/incentives" element={<Incentives />} />
         <Route path="/employees" element={<Employees />} />
+        <Route path="/departments/:departmentName/employees" element={<DepartmentEmployees />} />
       </Routes>
     </BrowserRouter>
   );

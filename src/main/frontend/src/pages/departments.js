@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Sidebar from "../components/Sidebar";
 import "../styles/departments.css";
 
 const Departments = () => {
   const [departments, setDepartments] = useState([]);
-  const [selectedDepartment, setSelectedDepartment] = useState(null);
-  const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDepartments = async () => {
@@ -28,23 +28,9 @@ const Departments = () => {
     fetchDepartments();
   }, []);
 
-  // 부서를 클릭했을 때 해당 부서의 직원 목록 가져오기
-  const handleDepartmentClick = async (departmentName) => {
-    try {
-      setLoading(true);
-      setSelectedDepartment(departmentName);
-      const response = await axios.get("http://localhost:8080/api/employees/department", {
-        params: { departmentName },
-      });
-      setEmployees(response.data);
-      setError("");
-    } catch (err) {
-      console.error(err);
-      setEmployees([]);
-      setError("직원 데이터를 불러오는 중 오류가 발생했습니다.");
-    } finally {
-      setLoading(false);
-    }
+  // 부서를 클릭했을 때 해당 부서의 직원 목록 페이지로 이동하기
+  const handleDepartmentClick = (departmentName) => {
+    navigate(`/departments/${departmentName}/employees`);
   };
 
   return (
@@ -82,42 +68,6 @@ const Departments = () => {
             </div>
           ) : (
             !loading && <p>부서 정보가 없습니다.</p>
-          )}
-
-          {selectedDepartment && (
-            <div className="employee-list">
-              <h2>{selectedDepartment} 부서의 직원 목록</h2>
-              {employees.length > 0 ? (
-                <table className="employee-table">
-                  <thead>
-                    <tr>
-                      <th>직원 ID</th>
-                      <th>이름</th>
-                      <th>이메일</th>
-                      <th>연락처</th>
-                      <th>나이</th>
-                      <th>성별</th>
-                      <th>입사일</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {employees.map((employee) => (
-                      <tr key={employee.employee_id}>
-                        <td>{employee.employee_id}</td>
-                        <td>{employee.employee_name}</td>
-                        <td>{employee.email}</td>
-                        <td>{employee.phonenumber}</td>
-                        <td>{employee.age}</td>
-                        <td>{employee.gender === "M" ? "남성" : "여성"}</td>
-                        <td>{employee.date}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              ) : (
-                <p>직원 정보가 없습니다.</p>
-              )}
-            </div>
           )}
         </div>
       </div>

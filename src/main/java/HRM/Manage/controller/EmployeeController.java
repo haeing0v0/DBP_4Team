@@ -97,6 +97,14 @@ public class EmployeeController {
             return ResponseEntity.status(404).body("해당 부서의 직원이 없습니다.");
         }
 
+        // 모든 직원의 필드가 제대로 반환되고 있는지 확인하는 로그 추가
+        depEmployee.forEach(employee -> System.out.println(
+                "직원 ID: " + employee.getEmployee_id() +
+                ", 이름: " + employee.getEmployee_name() +
+                ", 나이: " + employee.getAge() +
+                ", 입사일: " + employee.getDate()
+        ));
+
         return ResponseEntity.ok(depEmployee);
     }
 }
