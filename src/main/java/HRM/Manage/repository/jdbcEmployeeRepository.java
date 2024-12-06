@@ -23,7 +23,10 @@ public class jdbcEmployeeRepository implements EmployeeRepository{
 
     @Override
     public Employee save(Employee employee) {
-        String sql = "insert into EMPLOYEE values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO EMPLOYEE (EMPLOYEE_ID, EMPLOYEE_NAME, PHONENUMBER, EMAIL, AGE, GENDER, ENTERCOMPANYDATE, POSITION_ID, PAY_ID, DEPARTMENT_ID, MONTHPAY) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, EMPLOYEE_SEQ.NEXTVAL, ?, "
+                + "(SELECT POSITION_PAY FROM COMPANY_POSITION WHERE POSITION_ID = ?))";
+
         Connection conn = null;     PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
@@ -35,10 +38,10 @@ public class jdbcEmployeeRepository implements EmployeeRepository{
             pstmt.setString(4,employee.getEmail());
             pstmt.setInt(5, employee.getAge());
             pstmt.setString(6, employee.getGender());
-            pstmt.setDate(7, new java.sql.Date(employee.getDate().getTime())); // Date 변환
+            pstmt.setDate(7,java.sql.Date.valueOf(employee.getDate())); // Date 변환
             pstmt.setInt(8, employee.getPosition_id_fk());
-            pstmt.setInt(9, employee.getPay_id_fk());
-            pstmt.setInt(10, employee.getDepartment_id_fk());
+            pstmt.setInt(9, employee.getDepartment_id_fk());
+            pstmt.setInt(10, employee.getPosition_id_fk());
 
             int num = pstmt.executeUpdate();
             if(num == 1){ return employee;}
@@ -69,7 +72,7 @@ public class jdbcEmployeeRepository implements EmployeeRepository{
                 employee.setEmail(rs.getString(4));
                 employee.setAge(rs.getInt(5));
                 employee.setGender(rs.getString(6));
-                employee.setDate(rs.getDate(7));
+                employee.setDate(rs.getDate(7).toLocalDate());
                 employee.setPosition_id_fk(rs.getInt(8));
                 employee.setPay_id_fk(rs.getInt(9));
                 employee.setDepartment_id_fk(rs.getInt(10));
@@ -99,7 +102,7 @@ public class jdbcEmployeeRepository implements EmployeeRepository{
                 employee.setEmail(rs.getString(4));
                 employee.setAge(rs.getInt(5));
                 employee.setGender(rs.getString(6));
-                employee.setDate(rs.getDate(7));
+                employee.setDate(rs.getDate(7).toLocalDate());
                 employee.setPosition_id_fk(rs.getInt(8));
                 employee.setPay_id_fk(rs.getInt(9));
                 employee.setDepartment_id_fk(rs.getInt(10));

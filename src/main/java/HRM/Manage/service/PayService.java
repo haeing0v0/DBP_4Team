@@ -5,6 +5,7 @@ import HRM.Manage.repository.PayRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,6 +17,6 @@ public class PayService {
         this.payRepository = payRepository;
     }
 
-    public Optional<Pay> findPayOne(Integer id) {return payRepository.findPayById(id);}
+    public List<Pay> findPayOne(Integer id) {return payRepository.findPayById(id);}
     public boolean saveIncen(Integer id, int incen) {return payRepository.saveIncentive(id, incen);}
 }

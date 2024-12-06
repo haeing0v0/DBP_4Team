@@ -49,10 +49,9 @@ EmployeeController {
         employee.setGender(form.getGender());
         employee.setDate(form.getDate());
         employee.setPosition_id_fk(form.getPosition_id_fk());
-        employee.setPay_id_fk(form.getPay_id_fk());
         employee.setDepartment_id_fk(form.getDepartment_id_fk());
         employeeService.join(employee);
-        return "redirect:/employees/enter";
+        return "redirect:/";
     }
 
     @GetMapping("/employees/list")

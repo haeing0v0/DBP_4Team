@@ -1,5 +1,8 @@
 package HRM.Manage.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,13 +17,21 @@ public class Employee {
     String email;
     Integer age;
     String gender;
-    java.util.Date date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    LocalDate date;
     Integer position_id_fk;
     Integer pay_id_fk;
     Integer department_id_fk;
     Integer workDays = 0;
+    Integer month_pay;
 
+    public Integer getMonth_pay() {
+        return month_pay;
+    }
 
+    public void setMonth_pay(Integer month_pay) {
+        this.month_pay = month_pay;
+    }
 
     public Integer getEmployee_id() {
         return employee_id;
@@ -70,11 +81,11 @@ public class Employee {
         this.gender = gender;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

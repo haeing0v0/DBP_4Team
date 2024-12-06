@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface PayRepository {
 
-    Optional<Pay> findPayById(Integer id);
+    List<Pay> findPayById(Integer id);
     boolean saveIncentive(Integer id, int incentive);
 }

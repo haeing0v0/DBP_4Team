@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>급여 정보 결과</title>
+</head>
+<body>
+<h1>급여 정보 결과</h1>
+
+<!-- 급여 정보가 없는 경우 -->
+<div th:if="${payOne.empty}">
+    <p style="color: red;">입력한 ID에 해당하는 급여 정보가 없습니다.</p>
+</div>
+
+<!-- 급여 정보가 존재하는 경우 -->
+<div th:if="${!payOne.empty}">
+    <h2>급여 정보</h2>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>기본 급여</th>
+            <th>연간 급여</th>
+            <th>인센티브</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- payOne 리스트를 반복 처리 -->
+        <tr th:each="pay : ${payOne}">
+            <td th:text="${pay.default_pay}"></td> <!-- 기본 급여 -->
+            <td th:text="${pay.year_pay}"></td>    <!-- 연간 급여 -->
+            <td th:text="${pay.incentive != null ? pay.incentive : 'N/A'}"></td> <!-- 인센티브 -->
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- 뒤로 가기 버튼 -->
+<div>
+    <a href="/pay/one"><button>뒤로 가기</button></a>
+</div>
+</body>
+</html>

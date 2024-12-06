@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -16,30 +18,43 @@ public class jdbcPayRepository implements PayRepository{
     public jdbcPayRepository(DataSource dataSource) {this.dataSource = dataSource;}
 
     @Override
-    public Optional<Pay> findPayById(Integer id) {
-        if (id == null) {
-            return Optional.empty();  // id가 null이면 빈 Optional을 반환
-        }
-
-        String sql = "select DEFAULT_PAY, YEAR_PAY, INCENTIVE from pay where id = ?";
-        Connection conn = null;     PreparedStatement pstmt = null;
+    public List<Pay> findPayById(Integer id) {
+        String sql = "SELECT DEFAULT_PAY, YEAR_PAY, INCENTIVE FROM pay WHERE EMPLOYEE_ID = ?";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
         ResultSet rs = null;
+
+        List<Pay> payList = new ArrayList<>(); // 결과를 담을 리스트 생성
+
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, id);
             rs = pstmt.executeQuery();
-            if(rs.next()){
+
+            while (rs.next()) {
                 Pay pay = new Pay();
-                pay.setDefault_pay(rs.getInt("DEFAULT_PAY"));
-                pay.setYear_pay(rs.getInt("YEAR_PAY"));
-                pay.setIncentive(rs.getInt("INCENTIVE"));
-                return Optional.of(pay);
-            } else { return Optional.empty(); }
+                pay.setDefault_pay(rs.getInt("DEFAULT_PAY")); // 기본 급여
+                pay.setYear_pay(rs.getInt("YEAR_PAY"));      // 연간 급여
+                // INCENTIVE 처리: NULL 확인
+                int incentive = rs.getInt("INCENTIVE");
+                if (rs.wasNull()) {
+                    pay.setIncentive(null); // NULL로 설정
+                } else {
+                    pay.setIncentive(incentive); // 값 설정
+                }
+
+                payList.add(pay); // 리스트에 추가
+            }
         } catch (Exception e) {
-            throw new IllegalStateException(e);
-        } finally {close(conn, pstmt, rs); }
+            throw new IllegalStateException("Error fetching pay records", e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
+
+        return payList; // 결과 리스트 반환
     }
+
 
     @Override
     public boolean saveIncentive(Integer id, int incentive) {

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -22,10 +23,13 @@ public class PayController {
 
     @GetMapping("/pay/one")
     public String payOne(@RequestParam(value = "id", required = false) Integer id, Model model) {
-        Optional<Pay> payOptional = payService.findPayOne(id);
-        Pay pay = payOptional.orElse(null);
+        System.out.println(id);
+        if(id == null) {
+            return "pay/payOne";
+        }
+        List<Pay> pay = payService.findPayOne(id);
         model.addAttribute("payOne", pay);
-        return "pay/payOne";
+        return "pay/payOneResult";
     }
 
     @GetMapping("/pay/enter")
@@ -34,7 +38,7 @@ public class PayController {
     }
 
     @PostMapping("/pay/save")
-    public String save(@RequestParam Integer id, @RequestParam int incentive, Model model) {
+    public String save(@RequestParam(value = "id") Integer id, @RequestParam(value = "incentive") Integer incentive, Model model) {
         boolean isSuccess = payService.saveIncen(id, incentive);
         // 성공 여부에 따라 다른 뷰로 이동
         if (isSuccess) {
