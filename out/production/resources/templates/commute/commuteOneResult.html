@@ -1,41 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>출퇴근 기록</title>
+    <title>Commute Search Results</title>
 </head>
 <body>
-<h1>출퇴근 기록</h1>
+<h1>Commute Records</h1>
 
-<!-- 출퇴근 정보 테이블 -->
-<table border="1" th:if="${commuteOne != null && commuteOne.isPresent()}">
-    <thead>
-    <tr>
-        <th>출퇴근 ID</th>
-        <th>출근 시간</th>
-        <th>퇴근 시간</th>
-        <th>근무 날짜</th>
-        <th>일 근무 시간</th>
-        <th>월 근무 시간</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:with="commute=${commuteOne.get()}">
-        <td th:text="${commute.commute_id}"></td>
-        <td th:text="${#dates.format(commute.startWorkTime, 'HH:mm:ss')}"></td>
-        <td th:text="${#dates.format(commute.finishWorkTime, 'HH:mm:ss')}"></td>
-        <td th:text="${#dates.format(commute.workDay, 'yyyy-MM-dd')}"></td>
-        <td th:text="${commute.dayWorkTime} + ' 시간'"></td>
-        <td th:text="${commute.monthWorkTime} + ' 시간'"></td>
-    </tr>
-    </tbody>
-</table>
+<!-- 오류 메시지 표시 -->
+<div th:if="${message}">
+    <p th:text="${message}" style="color: red;"></p>
+</div>
 
-<!-- 검색 결과가 없는 경우 -->
-<p th:if="${commuteOne == null || commuteOne.isEmpty()}">해당 ID로 출퇴근 기록을 찾을 수 없습니다.</p>
+<!-- 검색 결과 테이블 -->
+<div th:if="${commuteOne}">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Commute ID</th>
+            <th>Employee ID</th>
+            <th>Start Work Time</th>
+            <th>Finish Work Time</th>
+            <th>Work Day</th>
+            <th>Day Work Time</th>
+            <th>Month Work Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 검색된 Commute 데이터를 반복 처리 -->
+        <tr th:each="commute : ${commuteOne}">
+            <td th:text="${commute.commute_id}"></td>
+            <td th:text="${commute.employee_id}"></td>
+            <td th:text="${commute.startWorkTime}"></td>
+            <td th:text="${commute.finishWorkTime}"></td>
+            <td th:text="${commute.workDay}"></td>
+            <td th:text="${commute.dayWorkTime}"></td>
+            <td th:text="${commute.monthWorkTime}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
-<!-- 다시 검색하기 -->
-<a href="/commute/find">다시 검색하기</a>
+<!-- 뒤로가기 버튼 -->
+<div>
+    <a href="/commute/find"><button>Back to Search</button></a>
+</div>
 </body>
 </html>

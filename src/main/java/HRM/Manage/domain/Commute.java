@@ -1,18 +1,32 @@
 package HRM.Manage.domain;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 // java.sql.Date -> 날짜만 반환
 // java.util.Date -> 날짜와 시간 모두 반환
 
 public class Commute {
     Integer commute_id;
-    java.util.Date startWorkTime;
-    java.util.Date finishWorkTime;
-    java.util.Date workDay;
+    String startWorkTime;
+    String finishWorkTime;
+    @DateTimeFormat(pattern = "yy-MM-dd")
+    LocalDate workDay;
     Integer dayWorkTime;
     Integer monthWorkTime;
+    Integer employee_id;
+
+    public Integer getEmployee_id() {
+        return employee_id;
+    }
+
+    public void setEmployee_id(Integer employee_id) {
+        this.employee_id = employee_id;
+    }
 
     Employee employee = new Employee();
 
@@ -24,28 +38,28 @@ public class Commute {
         this.commute_id = commute_id;
     }
 
-    public Date getStartWorkTime() {
+    public String getStartWorkTime() {
         return startWorkTime;
     }
 
-    public void setStartWorkTime(Date startWorkTime) {
+    public void setStartWorkTime(String startWorkTime) {
         this.startWorkTime = startWorkTime;
     }
 
-    public Date getWorkDay() {
-        return workDay;
-    }
-
-    public void setWorkDay(Date workDay) {
-        this.workDay = workDay;
-    }
-
-    public Date getFinishWorkTime() {
+    public String getFinishWorkTime() {
         return finishWorkTime;
     }
 
-    public void setFinishWorkTime(Date finishWorkTime) {
+    public void setFinishWorkTime(String finishWorkTime) {
         this.finishWorkTime = finishWorkTime;
+    }
+
+    public LocalDate getWorkDay() {
+        return workDay;
+    }
+
+    public void setWorkDay(LocalDate workDay) {
+        this.workDay = workDay;
     }
 
     public Integer getDayWorkTime() {

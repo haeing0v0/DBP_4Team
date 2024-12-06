@@ -3,14 +3,17 @@ package HRM.Manage.controller;
 import HRM.Manage.domain.Commute;
 import HRM.Manage.domain.Employee;
 import HRM.Manage.service.CommuteService;
+import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Date;
 
 @Controller
 public class CommuteController {
@@ -26,7 +29,7 @@ public class CommuteController {
             model.addAttribute("message", "직원 ID를 입력해주세요.");
             return "commute/commuteOne";
         }
-        Optional<Commute> commuteOne = commuteService.findCommuteById(id);
+        List<Commute> commuteOne = commuteService.findCommuteById(id);
 
         if (commuteOne.isEmpty()) {
             // 검색 결과가 없는 경우
@@ -39,4 +42,19 @@ public class CommuteController {
         model.addAttribute("commuteOne", commuteOne);
         return "commute/commuteOneResult";
     }
+
+    @GetMapping(value = "/commute/enter")
+    public String createForm() {return "commute/commuteEnter";}
+
+    @PostMapping(value = "commute/enter")
+    public String enter(Commute form){
+        Commute commute = new Commute();
+        commute.setEmployee_id(form.getEmployee_id());
+        commute.setStartWorkTime(form.getStartWorkTime());
+        commute.setFinishWorkTime(form.getFinishWorkTime());
+        commute.setWorkDay(form.getWorkDay());
+        commuteService.save(commute);
+        return "redirect:/";
+    }
+
 }
