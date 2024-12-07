@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commute Entry</title>
+</head>
+<body>
+<h1>Commute Entry Form</h1>
+
+<!-- Form Start -->
+<form action="/commute/enter" method="post">
+
+    <!-- Employee ID -->
+    <label for="employee_id">Employee ID:</label>
+    <input type="number" id="employee_id" name="employee_id" required><br><br>
+
+    <!-- Start Work Time -->
+    <label for="startWorkTime">Start Work Time (HH:mm):</label>
+    <input type="time" id="startWorkTime" name="startWorkTime" required><br><br>
+
+    <!-- Finish Work Time -->
+    <label for="finishWorkTime">Finish Work Time (HH:mm):</label>
+    <input type="time" id="finishWorkTime" name="finishWorkTime" required><br><br>
+
+    <!-- Work Day -->
+    <label for="workDay">Work Day (yyyy-MM-dd):</label>
+    <input type="date" id="workDay" name="workDay" required><br><br>
+
+    <!-- Submit Button -->
+    <button type="submit">Submit</button>
+</form>
+<!-- Form End -->
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${departmentName} + ' 부서 직원 목록'">부서 직원 목록</title>
+</head>
+<body>
+<h1 th:text="${departmentName} + ' 부서 직원 목록'">부서 직원 목록</h1>
+
+<!-- 직원 목록이 없는 경우 -->
+<p th:if="${employees == null || employees.isEmpty()}">직원이 없습니다.</p>
+
+<!-- 직원 목록 테이블 -->
+<table border="1" th:if="${employees != null && !employees.isEmpty()}">
+    <thead>
+    <tr>
+        <th>직원 ID</th>
+        <th>이름</th>
+        <th>전화번호</th>
+        <th>이메일</th>
+        <th>성별</th>
+        <th>근무일수</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee.employee_id}"></td>
+        <td th:text="${employee.employee_name}"></td>
+        <td th:text="${employee.phonenumber}"></td>
+        <td th:text="${employee.email}"></td>
+        <td th:text="${employee.gender}"></td>
+        <td th:text="${employee.workDays}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

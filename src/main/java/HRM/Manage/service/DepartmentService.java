@@ -1,12 +1,12 @@
 package HRM.Manage.service;
 
-import HRM.Manage.domain.Department;
-import HRM.Manage.domain.Employee;
-import HRM.Manage.repository.DepartmentRepository;
-import jakarta.transaction.Transactional;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import HRM.Manage.domain.Department;
+import HRM.Manage.repository.DepartmentRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 @Transactional

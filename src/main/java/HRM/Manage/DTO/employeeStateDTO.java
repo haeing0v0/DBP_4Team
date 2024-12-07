@@ -1,6 +1,5 @@
 package HRM.Manage.DTO;
 
-import javax.swing.text.Position;
 import java.util.List;
 
 public class employeeStateDTO {

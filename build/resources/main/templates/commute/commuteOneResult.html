@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commute Search Results</title>
+</head>
+<body>
+<h1>Commute Records</h1>
+
+<!-- 오류 메시지 표시 -->
+<div th:if="${message}">
+    <p th:text="${message}" style="color: red;"></p>
+</div>
+
+<!-- 검색 결과 테이블 -->
+<div th:if="${commuteOne}">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Commute ID</th>
+            <th>Employee ID</th>
+            <th>Start Work Time</th>
+            <th>Finish Work Time</th>
+            <th>Work Day</th>
+            <th>Day Work Time</th>
+            <th>Month Work Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 검색된 Commute 데이터를 반복 처리 -->
+        <tr th:each="commute : ${commuteOne}">
+            <td th:text="${commute.commute_id}"></td>
+            <td th:text="${commute.employee_id}"></td>
+            <td th:text="${commute.startWorkTime}"></td>
+            <td th:text="${commute.finishWorkTime}"></td>
+            <td th:text="${commute.workDay}"></td>
+            <td th:text="${commute.dayWorkTime}"></td>
+            <td th:text="${commute.monthWorkTime}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- 뒤로가기 버튼 -->
+<div>
+    <a href="/commute/find"><button>Back to Search</button></a>
+</div>
+</body>
+</html>

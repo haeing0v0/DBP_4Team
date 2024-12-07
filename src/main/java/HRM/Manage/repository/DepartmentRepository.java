@@ -1,8 +1,8 @@
 package HRM.Manage.repository;
 
-import HRM.Manage.domain.Department;
-
 import java.util.List;
+
+import HRM.Manage.domain.Department;
 
 public interface DepartmentRepository {
     // 부서 조회 -> 부서ID, 부서명, 매출총액
