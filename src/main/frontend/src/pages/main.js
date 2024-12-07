@@ -17,9 +17,11 @@ import {
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const Main = () => {
-  const [totalEmployees, setTotalEmployees] = useState(0); // 전체 사원 수 상태
-  const [topDepartments, setTopDepartments] = useState([]); // TOP 3 부서 데이터 상태
-  const [departmentStats, setDepartmentStats] = useState([]); // 부서별 사원 수 데이터
+  const [totalEmployees, setTotalEmployees] = useState(0);
+  const [maleCount, setMaleCount] = useState(0); 
+  const [femaleCount, setFemaleCount] = useState(0);
+  const [topDepartments, setTopDepartments] = useState([]); 
+  const [departmentStats, setDepartmentStats] = useState([]); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -28,9 +30,20 @@ const Main = () => {
       try {
         setLoading(true);
 
-        // Fetch total employees and department stats
+        // Fetch employee list
+        const employeeResponse = await axios.get("http://localhost:8080/api/employees/list");
+        const employees = employeeResponse.data;
+
+        // Calculate gender stats
+        const male = employees.filter((emp) => emp.gender === "남성").length;
+        const female = employees.filter((emp) => emp.gender === "여성").length;
+
+        setMaleCount(male);
+        setFemaleCount(female);
+        setTotalEmployees(male + female);
+
+        // Fetch department stats
         const statsResponse = await axios.get("http://localhost:8080/api/employees/stats");
-        setTotalEmployees(statsResponse.data.totalEmployees);
         setDepartmentStats(statsResponse.data.departmentStats);
 
         // Fetch TOP 3 departments
@@ -64,7 +77,7 @@ const Main = () => {
 
   const chartOptions = {
     responsive: true,
-    maintainAspectRatio: false, // 그래프 비율 유지 비활성화
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
@@ -75,11 +88,11 @@ const Main = () => {
     },
     scales: {
       y: {
-        min: 8, // 최소값
-        max: 14, // 최대값
+        min: 8,
+        max: 14, 
         ticks: {
-          stepSize: 1, // 단위
-          callback: (value) => (Number.isInteger(value) ? value : null), // 정수만 표시
+          stepSize: 1,
+          callback: (value) => (Number.isInteger(value) ? value : null), 
         },
       },
     },
@@ -105,18 +118,18 @@ const Main = () => {
               </div>
               <div className="card">
                 <h3>총 부서 수</h3>
-                <p>6</p>
+                <p>8</p>
               </div>
               <h3 className="left-section-mid">성비 통계</h3>
             </div>
             <div className="left-section-bottom">
               <div className="card">
-                <h3>남</h3>
-                <p>9</p>
+                <h3 className="Man">남</h3>
+                {loading ? <p>로딩 중...</p> : <p>{maleCount}</p>}
               </div>
               <div className="card">
-                <h3>여</h3>
-                <p>6</p>
+                <h3 className="Woman">여</h3>
+                {loading ? <p>로딩 중...</p> : <p>{femaleCount}</p>}
               </div>
             </div>
           </div>
