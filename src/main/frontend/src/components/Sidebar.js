@@ -64,7 +64,7 @@ function Sidebar() {
           <li>
             <a onClick={() => toggleSubMenu('departments')} className="menu-item">
               <div className="menu-content">
-                <LuUsersRound /> 부서
+                <LuUsersRound /> 부서/직원
               </div>
               {expandedMenu === 'departments' ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
             </a>
@@ -76,13 +76,13 @@ function Sidebar() {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/employees" activeClassName="active">
-                    직원 목록
+                  <NavLink to="/positions" activeClassName="active">
+                    직급 목록
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/positions" activeClassName="active">
-                    직급 목록
+                  <NavLink to="/employees" activeClassName="active">
+                    직원 목록
                   </NavLink>
                 </li>
                 <li>
