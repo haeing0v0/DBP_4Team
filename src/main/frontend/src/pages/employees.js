@@ -45,6 +45,7 @@ const Employees = () => {
                     <th>나이</th>
                     <th>성별</th>
                     <th>입사일</th>
+                    <th>월급</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -57,6 +58,7 @@ const Employees = () => {
                       <td>{employee.age}</td>
                       <td>{employee.gender}</td>
                       <td>{employee.date}</td>
+                      <td>{employee.month_pay?.toLocaleString()}원</td>
                     </tr>
                   ))}
                 </tbody>
