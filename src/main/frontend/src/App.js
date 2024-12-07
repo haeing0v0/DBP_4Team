@@ -10,6 +10,7 @@ import Salary from './pages/salary.js';
 import Incentives from './pages/incentives.js'; 
 import Employees from './pages/employees.js';
 import DepartmentEmployees from './pages/departmentEmployees.js';
+import Search from './pages/search.js';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/incentives" element={<Incentives />} />
         <Route path="/employees" element={<Employees />} />
         <Route path="/departments/:departmentName/employees" element={<DepartmentEmployees />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
     </BrowserRouter>
   );

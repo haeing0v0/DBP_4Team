@@ -30,11 +30,9 @@ const Main = () => {
       try {
         setLoading(true);
 
-        // Fetch employee list
         const employeeResponse = await axios.get("http://localhost:8080/api/employees/list");
         const employees = employeeResponse.data;
 
-        // Calculate gender stats
         const male = employees.filter((emp) => emp.gender === "남성").length;
         const female = employees.filter((emp) => emp.gender === "여성").length;
 
@@ -42,11 +40,9 @@ const Main = () => {
         setFemaleCount(female);
         setTotalEmployees(male + female);
 
-        // Fetch department stats
         const statsResponse = await axios.get("http://localhost:8080/api/employees/stats");
         setDepartmentStats(statsResponse.data.departmentStats);
 
-        // Fetch TOP 3 departments
         const departmentsResponse = await axios.get("http://localhost:8080/api/departments");
         setTopDepartments(departmentsResponse.data);
 

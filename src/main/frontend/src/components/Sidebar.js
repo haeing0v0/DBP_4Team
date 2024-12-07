@@ -90,6 +90,11 @@ function Sidebar() {
                     직원 등록
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink to="/search" activeClassName="active">
+                    직원 검색
+                  </NavLink>
+                </li>
               </ul>
             )}
           </li>
