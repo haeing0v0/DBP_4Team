@@ -49,6 +49,7 @@ const DepartmentEmployees = () => {
                     <th>이메일</th>
                     <th>연락처</th>
                     <th>성별</th>
+                    <th>근무 일수</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -59,6 +60,7 @@ const DepartmentEmployees = () => {
                       <td>{employee.email}</td>
                       <td>{employee.phonenumber}</td>
                       <td>{employee.gender}</td>
+                      <td>{employee.workDays}</td>
                     </tr>
                   ))}
                 </tbody>

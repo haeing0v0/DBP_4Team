@@ -22,6 +22,7 @@ const Main = () => {
   const [femaleCount, setFemaleCount] = useState(0);
   const [topDepartments, setTopDepartments] = useState([]);
   const [departmentStats, setDepartmentStats] = useState([]);
+  const [positionStats, setPositionStats] = useState([]); // 올바른 키 사용
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -44,6 +45,9 @@ const Main = () => {
         // Fetch department stats
         const statsResponse = await axios.get("http://localhost:8080/api/employees/stats");
         setDepartmentStats(statsResponse.data.departmentStats);
+
+        // Fetch position stats
+        setPositionStats(statsResponse.data.positionStates); // 변경된 키
 
         // Fetch top 3 departments
         const topDepartmentsResponse = await axios.get("http://localhost:8080/api/departments/top3");
@@ -130,6 +134,33 @@ const Main = () => {
                 <h3 className="Woman">여</h3>
                 {loading ? <p>로딩 중...</p> : <p>{femaleCount}</p>}
               </div>
+            </div>
+          </div>
+          <div className="center-section">
+            <div className="card">
+              <h3>직급별 사원 수</h3>
+              {loading ? (
+                <p>로딩 중...</p>
+              ) : error ? (
+                <p className="error-message">{error}</p>
+              ) : (
+                <table>
+                  <thead>
+                    <tr>
+                      <th>직급</th>
+                      <th>사원 수</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {positionStats.map((pos, index) => (
+                      <tr key={index}>
+                        <td>{pos.positionName}</td>
+                        <td>{pos.employeeCount}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
             </div>
           </div>
           <div className="right-section">
