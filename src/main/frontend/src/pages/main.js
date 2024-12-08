@@ -92,7 +92,7 @@ const Main = () => {
     scales: {
       y: {
         min: 8,
-        max: 14,
+        max: 18,
         ticks: {
           stepSize: 1,
           callback: (value) => (Number.isInteger(value) ? value : null),
