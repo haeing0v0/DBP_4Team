@@ -13,7 +13,6 @@ const Register = () => {
     gender: "",
     joinDate: "",
     positionId: "",
-    salaryId: "",
     departmentCode: "",
   });
 
@@ -35,7 +34,6 @@ const Register = () => {
       "gender",
       "joinDate",
       "positionId",
-      "salaryId",
       "departmentCode",
     ];
 
@@ -67,7 +65,6 @@ const Register = () => {
         gender: formData.gender,
         date: formData.joinDate,
         position_id_fk: formData.positionId,
-        pay_id_fk: formData.salaryId,
         department_id_fk: formData.departmentCode,
       });
 
@@ -83,7 +80,6 @@ const Register = () => {
         gender: "",
         joinDate: "",
         positionId: "",
-        salaryId: "",
         departmentCode: "",
       });
       setError("");
@@ -195,16 +191,6 @@ const Register = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>급여 ID</td>
-                    <td>
-                      <input
-                        type="text"
-                        name="salaryId"
-                        value={formData.salaryId}
-                        onChange={handleInputChange}
-                        placeholder="급여 ID"
-                      />
-                    </td>
                     <td>부서 코드</td>
                     <td>
                       <input

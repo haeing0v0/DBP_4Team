@@ -1,12 +1,12 @@
 package HRM.Manage.service;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import HRM.Manage.domain.Pay;
 import HRM.Manage.repository.PayRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional

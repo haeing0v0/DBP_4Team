@@ -1,12 +1,13 @@
 package HRM.Manage.service;
 
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import HRM.Manage.domain.CompanyPosition;
 import HRM.Manage.repository.CompanyPositionRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @Transactional
