@@ -23,12 +23,21 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @GetMapping 
+    @GetMapping
     public ResponseEntity<List<Department>> getDepartments() {
         List<Department> departments = departmentService.findDepartment();
         if (departments.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(departments); 
+        return ResponseEntity.ok(departments);
+    }
+
+    @GetMapping("/top3")
+    public ResponseEntity<List<Department>> getTop3Departments() {
+        List<Department> top3Departments = departmentService.findTop3Department();
+        if (top3Departments.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(top3Departments);
     }
 }

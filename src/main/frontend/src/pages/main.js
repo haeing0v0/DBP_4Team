@@ -18,10 +18,10 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 const Main = () => {
   const [totalEmployees, setTotalEmployees] = useState(0);
-  const [maleCount, setMaleCount] = useState(0); 
+  const [maleCount, setMaleCount] = useState(0);
   const [femaleCount, setFemaleCount] = useState(0);
-  const [topDepartments, setTopDepartments] = useState([]); 
-  const [departmentStats, setDepartmentStats] = useState([]); 
+  const [topDepartments, setTopDepartments] = useState([]);
+  const [departmentStats, setDepartmentStats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -30,6 +30,7 @@ const Main = () => {
       try {
         setLoading(true);
 
+        // Fetch employee list
         const employeeResponse = await axios.get("http://localhost:8080/api/employees/list");
         const employees = employeeResponse.data;
 
@@ -40,11 +41,13 @@ const Main = () => {
         setFemaleCount(female);
         setTotalEmployees(male + female);
 
+        // Fetch department stats
         const statsResponse = await axios.get("http://localhost:8080/api/employees/stats");
         setDepartmentStats(statsResponse.data.departmentStats);
 
-        const departmentsResponse = await axios.get("http://localhost:8080/api/departments");
-        setTopDepartments(departmentsResponse.data);
+        // Fetch top 3 departments
+        const topDepartmentsResponse = await axios.get("http://localhost:8080/api/departments/top3");
+        setTopDepartments(topDepartmentsResponse.data);
 
         setError("");
       } catch (err) {
@@ -85,10 +88,10 @@ const Main = () => {
     scales: {
       y: {
         min: 8,
-        max: 14, 
+        max: 14,
         ticks: {
           stepSize: 1,
-          callback: (value) => (Number.isInteger(value) ? value : null), 
+          callback: (value) => (Number.isInteger(value) ? value : null),
         },
       },
     },
